@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<consumables>
+    <consumable>
+       <brandname>Milka</brandname>
+       <class>org.dieschnittstelle.jee.esa.basics.annotations.Schokolade</class>
+       <units>24</units>        
+    </consumable>    
+    <consumable>
+       <brandname>Ritter Sport</brandname>
+       <class>org.dieschnittstelle.jee.esa.basics.annotations.Schokolade</class>
+       <units>16</units>        
+    </consumable>  
+    <consumable>
+       <brandname>Lindt</brandname>
+       <class>org.dieschnittstelle.jee.esa.basics.annotations.Schokolade</class>
+       <units>20</units>        
+    </consumable>    
+    <consumable>
+       <brandname>Mark Brandenburg</brandname>
+       <class>org.dieschnittstelle.jee.esa.basics.annotations.Milch</class>
+       <units>10</units>        
+    </consumable>   
+    <consumable>
+       <brandname>Mark Brandenburg Fettarm</brandname>
+       <class>org.dieschnittstelle.jee.esa.basics.annotations.Milch</class>
+       <units>20</units>        
+    </consumable>    
+</consumables>
