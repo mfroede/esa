@@ -1,9 +1,12 @@
 package org.dieschnittstelle.jee.esa.basics.annotations;
 
+import org.dieschnittstelle.jee.esa.basics.annotations.DisplayAs.DisplayType;
+
 @Consumable
 public class Schokolade {
 
 	@Units
+	@DisplayAs(displayType=DisplayType.BOTH)
 	private int anzahlStuecke;
 
 	private String marke;
@@ -52,6 +55,6 @@ public class Schokolade {
 	 * toString
 	 */
 	public String toString() {
-		return "{Milch " + this.marke + " " + this.anzahlStuecke + "}";
+		return "{Schokolade " + this.marke + " " + this.anzahlStuecke + "}";
 	}
 }

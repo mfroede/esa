@@ -1,12 +1,16 @@
 package org.dieschnittstelle.jee.esa.basics.annotations;
 
+import org.dieschnittstelle.jee.esa.basics.annotations.DisplayAs.DisplayType;
+
 @Consumable
 public class Milch {
 
 	@Units
+	@DisplayAs(displayType=DisplayType.VALUE)
 	private int menge;
 
 	@Brandname
+	@DisplayAs(displayType=DisplayType.BOTH)
 	private String markenname;
 
 	public int getMenge() {
