@@ -74,7 +74,9 @@ public class TestTouchpointService {
 			
 			// create a GetMethod
 			// ändern Sie die URL für Ü1
-			HttpGet get = new HttpGet("http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints");
+			HttpGet get = new HttpGet("http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints");//"http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/gui/touchpoints"
+			// Server asutricksen
+			//			get.addHeader("accept", "text/html");
 			// execute the method and obtain the response
 			HttpResponse response = client.execute(get);
 			
