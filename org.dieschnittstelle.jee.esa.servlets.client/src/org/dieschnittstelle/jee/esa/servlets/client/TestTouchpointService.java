@@ -1,18 +1,16 @@
 package org.dieschnittstelle.jee.esa.servlets.client;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.dieschnittstelle.jee.esa.crm.model.AbstractTouchpoint;
@@ -66,7 +64,7 @@ public class TestTouchpointService {
 				"BHT Verkaufsstand", addr);
 
 		createNewTouchpoint(client, tp);
-
+		deleteTouchpoint(client, tp);
 	}
 
 	private static List<AbstractTouchpoint> readAllTouchpoints(HttpClient client) {
@@ -121,7 +119,34 @@ public class TestTouchpointService {
 	 */
 	private static void deleteTouchpoint(HttpClient client,
 			AbstractTouchpoint tp) {
-		logger.info("deleteTouchpoint(): " + tp);
+	     try {
+	         
+	         // create a GetMethod
+	         // ändern Sie die URL für Ü1
+	         HttpDelete delete = new HttpDelete("http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints");
+	         HttpParams httpParams = delete.getParams();
+	         httpParams.setParameter("id", tp.getId());
+	         
+	         // execute the method and obtain the response
+	         HttpResponse response = client.execute(delete);
+	         
+	         
+	         
+	         // check the response status
+	         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+	            logger.info("done");
+	         } else {
+	            String err = "could not successfully execute request. Got status code: "
+	                  + response.getStatusLine().getStatusCode();
+	            logger.error(err);
+	            throw new RuntimeException(err);
+	         }
+
+	      } catch (Exception e) {
+	         String err = "got exception: " + e;
+	         logger.error(err, e);
+	         throw new RuntimeException(e);
+	      }
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +44,18 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 			throw new RuntimeException(e);
 		}
 
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	// obtain the executor for reading out the touchpoints
+      TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
+            .getAttribute("touchpointCRUD");
+      if(exec.deleteTouchpoint(Integer.parseInt(req.getParameter("id")))) {
+         resp.setStatus(HttpServletResponse.SC_OK);
+      } else {
+         resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+      }
 	}
 	
 }
