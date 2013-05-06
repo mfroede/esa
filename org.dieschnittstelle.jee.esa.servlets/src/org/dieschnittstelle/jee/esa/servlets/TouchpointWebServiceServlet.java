@@ -57,5 +57,10 @@ public class TouchpointWebServiceServlet extends HttpServlet {
          resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
       }
 	}
-	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+	      TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
+	              .getAttribute("touchpointCRUD");
+	}
 }
