@@ -94,7 +94,6 @@ public class TestTouchpointRESTService {
 		/*
 		 * Ü1: add a call to the update method, passing tp
 		 */
-
 	}
 
 }
