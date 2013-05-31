@@ -45,16 +45,41 @@ public class IndividualisedProductItem extends AbstractProduct implements Serial
 	public String toString() {
 		return "{IProductItem " + this.getId() + ", " + this.getName() + ", " + this.productType + "}";
 	}
+
+   @Override
+   public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + expirationAfterStocked;
+      result = prime * result + ((productType == null) ? 0 : productType.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      IndividualisedProductItem other = (IndividualisedProductItem) obj;
+      if (expirationAfterStocked != other.expirationAfterStocked)
+         return false;
+      if (productType != other.productType)
+         return false;
+      return true;
+   }
 	
-	public boolean equals(Object other) {
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
-	
-	public int hashCode() {
-		int code = HashCodeBuilder.reflectionHashCode(this);
-		System.out.println("hashCode of " + this + ": " + hashCode());
-		
-		return code;
-	}
+//	public boolean equals(Object other) {
+//		return EqualsBuilder.reflectionEquals(this, other);
+//	}
+//	
+//	public int hashCode() {
+//		int code = HashCodeBuilder.reflectionHashCode(this);
+//		System.out.println("hashCode of " + this + ": " + hashCode());
+//		
+//		return code;
+//	}
 
 }

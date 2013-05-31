@@ -13,7 +13,7 @@ import org.jboss.logging.Logger;
 /**
  * allows read/write access to a customer's shopping history
  */
-@Stateless
+@Stateless(name="customerTracking")
 public class CustomerTrackingStateless implements CustomerTrackingRemote {
 
 	protected static Logger logger = Logger

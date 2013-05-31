@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
 	version="3.1">
 	<display-name>org.dieschnittstelle.jee.esa.ejbs</display-name>
-		<enterprise-beans>
+	<enterprise-beans>
 
 		<session>
 			<ejb-name>shoppingCart</ejb-name>
@@ -12,19 +12,30 @@
 			<stateful-timeout>
 				<timeout>1000000</timeout>
 				<unit>Milliseconds</unit>
-			</stateful-timeout>			
+			</stateful-timeout>
 		</session>
 
 		<session>
 			<ejb-name>customerTrackingSystem</ejb-name>
 			<ejb-class>org.dieschnittstelle.jee.esa.crm.ejbs.CustomerTrackingStateless</ejb-class>
 		</session>
-
+		<session>
+			<ejb-name>stockSystem</ejb-name>
+			<ejb-class>org.dieschnittstelle.jee.esa.erp.ejbs.StockSystemImpl</ejb-class>
+		</session>
 		<session>
 			<ejb-name>campaignTrackingSystem</ejb-name>
 			<ejb-class>org.dieschnittstelle.jee.esa.crm.ejbs.CampaignTrackingSingleton</ejb-class>
 		</session>
-			
-	</enterprise-beans>	 
-	
+		<session>
+			<ejb-name>shoppingSession</ejb-name>
+			<ejb-class>org.dieschnittstelle.jee.esa.shopping.ShoppingSessionFacadeImpl</ejb-class>
+			<stateful-timeout>
+				<timeout>1000000</timeout>
+				<unit>Milliseconds</unit>
+			</stateful-timeout>
+		</session>
+
+	</enterprise-beans>
+
 </ejb-jar>

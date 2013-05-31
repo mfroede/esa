@@ -17,8 +17,8 @@ import org.jboss.logging.Logger;
 /**
  * tracks the execution of a compaign
  */
-@Singleton
 @Startup
+@Singleton(name="campaignTracking")
 @javax.ejb.ConcurrencyManagement(javax.ejb.ConcurrencyManagementType.CONTAINER)
 public class CampaignTrackingSingleton implements CampaignTrackingRemote {
 

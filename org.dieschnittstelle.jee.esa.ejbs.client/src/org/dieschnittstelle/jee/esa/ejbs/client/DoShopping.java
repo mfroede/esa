@@ -12,7 +12,7 @@ public class DoShopping {
 		
 		try {
 			// create a shopping session and initialise it such that it can access the required beans
-			ShoppingSession session = new ShoppingSession();
+			ShoppingDelegate session = new ShoppingDelegate();
 			session.initialise();
 			
 			// add a customer and a touchpoint

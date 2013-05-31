@@ -6,7 +6,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
-
 import org.dieschnittstelle.jee.esa.crm.ejbs.CampaignTrackingRemote;
 import org.dieschnittstelle.jee.esa.crm.ejbs.CustomerTrackingRemote;
 import org.dieschnittstelle.jee.esa.crm.ejbs.ShoppingCartRemote;
@@ -66,15 +65,24 @@ public class ShoppingSession {
 		}
 	}
 
-	public void setTouchpoint(AbstractTouchpoint touchpoint) {
+	/* (non-Javadoc)
+    * @see org.dieschnittstelle.jee.esa.ejbs.client.ShoppingCardFacade#setTouchpoint(org.dieschnittstelle.jee.esa.crm.model.AbstractTouchpoint)
+    */
+   public void setTouchpoint(AbstractTouchpoint touchpoint) {
 		this.touchpoint = touchpoint;
 	}
 
-	public void setCustomer(Customer customer) {
+	/* (non-Javadoc)
+    * @see org.dieschnittstelle.jee.esa.ejbs.client.ShoppingCardFacade#setCustomer(org.dieschnittstelle.jee.esa.crm.model.Customer)
+    */
+   public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-	public void addProduct(AbstractProduct product, int units) {
+	/* (non-Javadoc)
+    * @see org.dieschnittstelle.jee.esa.ejbs.client.ShoppingCardFacade#addProduct(org.dieschnittstelle.jee.esa.erp.model.AbstractProduct, int)
+    */
+   public void addProduct(AbstractProduct product, int units) {
 		this.shoppingCart.addProductBundle(new CrmProductBundle(product.getId(),
 				units,product instanceof Campaign));
 	}
@@ -82,7 +90,10 @@ public class ShoppingSession {
 	/*
 	 * verify whether campaigns are still valid
 	 */
-	public void verifyCampaigns() {
+	/* (non-Javadoc)
+    * @see org.dieschnittstelle.jee.esa.ejbs.client.ShoppingCardFacade#verifyCampaigns()
+    */
+   public void verifyCampaigns() {
 		if (this.customer == null || this.touchpoint == null) {
 			throw new RuntimeException(
 					"cannot verify campaigns! No touchpoint has been set!");
@@ -105,7 +116,10 @@ public class ShoppingSession {
 		}
 	}
 
-	public void purchase() {
+	/* (non-Javadoc)
+    * @see org.dieschnittstelle.jee.esa.ejbs.client.ShoppingCardFacade#purchase()
+    */
+   public void purchase() {
 		logger.info("commit()");
 
 		if (this.customer == null || this.touchpoint == null) {
