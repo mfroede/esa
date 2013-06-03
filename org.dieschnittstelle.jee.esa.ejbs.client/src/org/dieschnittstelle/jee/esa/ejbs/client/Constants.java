@@ -22,7 +22,7 @@ public class Constants {
 	public static final String CAMPAIGN_TRACKING_BEAN = "ejb:/org.dieschnittstelle.jee.esa.ejbs/CampaignTrackingSingleton!org.dieschnittstelle.jee.esa.crm.ejbs.CampaignTrackingRemote"; 
 	public static final String CUSTOMER_TRACKING_BEAN = "ejb:/org.dieschnittstelle.jee.esa.ejbs/customerTrackingSystem!org.dieschnittstelle.jee.esa.crm.ejbs.CustomerTrackingRemote"; 
 	public static final String STOCK_SYSTEM_BEAN = "ejb:/org.dieschnittstelle.jee.esa.ejbs/stockSystem!org.dieschnittstelle.jee.esa.erp.ejbs.StockSystem";
-	public static final String SHOPPING_SESSION_BEAN = "ejb:/org.dieschnittstelle.jee.esa.ejbs/shoppingSession!org.dieschnittstelle.jee.esa.shopping.ShoppingSessionFacade";
+	public static final String SHOPPING_SESSION_BEAN = "ejb:/org.dieschnittstelle.jee.esa.ejbs/shoppingSession!org.dieschnittstelle.jee.esa.shopping.ShoppingSessionFacade?stateful";
 	/*
 	 * constants for the objects that are dealt with in the different accessors to the beans
 	 */
