@@ -6,8 +6,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import com.sun.xml.internal.txw2.annotation.XmlAttribute;
-
 /**
  * @author kreutel
  */
