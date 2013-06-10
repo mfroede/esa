@@ -2,59 +2,57 @@ package org.dieschnittstelle.jee.esa.erp.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.OneToOne;
 
 public class ProductAtPosPK implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9113210426279286629L;
+   private static final long serialVersionUID = 9113210426279286629L;
 
-	private AbstractProduct product;
+   @OneToOne
+   private AbstractProduct product;
 
-	private PointOfSale pos;
+   @OneToOne
+   private PointOfSale pos;
 
-	public ProductAtPosPK() {
-	}
+   public ProductAtPosPK() {
+   }
 
-	public ProductAtPosPK(AbstractProduct product,
-			PointOfSale pos) {
-		this.product = product;
-		this.pos = pos;
-	}
+   public ProductAtPosPK(AbstractProduct product, PointOfSale pos) {
+      this.product = product;
+      this.pos = pos;
+   }
 
-	public AbstractProduct getProduct() {
-		return product;
-	}
+   public AbstractProduct getProduct() {
+      return product;
+   }
 
-	public void setProduct(AbstractProduct product) {
-		this.product = product;
-	}
+   public void setProduct(AbstractProduct product) {
+      this.product = product;
+   }
 
-	public PointOfSale getPos() {
-		return pos;
-	}
+   public PointOfSale getPos() {
+      return pos;
+   }
 
-	public void setPos(PointOfSale pos) {
-		this.pos = pos;
-	}
+   public void setPos(PointOfSale pos) {
+      this.pos = pos;
+   }
 
-	// see http://uaihebert.com/?p=42
-	public int hashCode() {
-		return this.product.hashCode() + this.pos.hashCode();
-	}
+   // see http://uaihebert.com/?p=42
+   @Override
+   public int hashCode() {
+      return this.product.hashCode() + this.pos.hashCode();
+   }
 
-	public boolean equals(Object obj) {
+   @Override
+   public boolean equals(Object obj) {
 
-		if (obj == null)
-			return false;
-		if (obj.getClass() != this.getClass())
-			return false;
+      if (obj == null)
+         return false;
+      if (obj.getClass() != this.getClass())
+         return false;
 
-		return this.product.getId() == ((ProductAtPosPK) obj).getProduct()
-				.getId()
-				&& this.pos.getId() == ((ProductAtPosPK) obj)
-						.getPos().getId();
-	}
+      return this.product.getId() == ((ProductAtPosPK) obj).getProduct().getId() && this.pos.getId() == ((ProductAtPosPK) obj).getPos().getId();
+   }
 
 }

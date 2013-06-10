@@ -29,197 +29,196 @@ import org.jboss.logging.Logger;
 @Entity
 public class Customer implements Serializable {
 
-	protected static Logger logger = Logger.getLogger(Customer.class);
-	
-	/**
+   protected static Logger logger = Logger.getLogger(Customer.class);
+
+   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 7461272049473919251L;
+   private static final long serialVersionUID = 7461272049473919251L;
 
-	/*
-	 * Ü: move the annotation to the getter
-	 */
-	@Id
-	@GeneratedValue
-	private int id = -1;
+   /*
+    * Ü: move the annotation to the getter
+    */
+   @Id
+   @GeneratedValue
+   private int id = -1;
 
-	public int getId() {
-		return id;
-	}
+   public int getId() {
+      return id;
+   }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+   public void setId(int id) {
+      this.id = id;
+   }
 
-	private Gender gender;
+   private Gender gender;
 
-	private String firstName;
+   private String firstName;
 
-	private String lastName;
+   private String lastName;
 
-	private String mobilePhoneId;
+   private String mobilePhoneId;
 
-	private String email;
+   private String email;
 
-	@ManyToOne(cascade={CascadeType.ALL})
-	private Address address;
+   @ManyToOne(cascade = { CascadeType.ALL })
+   private Address address;
 
-	@ManyToMany(mappedBy="customers")
-	private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
+   @ManyToMany(mappedBy = "customers")
+   private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
 
-	@ManyToOne
-	private AbstractTouchpoint preferredTouchpoint;
-	
-	/*
-	 * Ü1.2 
-	 */
-	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY)
-	//@OneToMany(mappedBy="customer", fetch=FetchType.EAGER)
-	private Collection<CustomerTransaction> transactions;
-	
-	public void addTouchpoint(AbstractTouchpoint touchpoint) {
-		this.touchpoints.add(touchpoint);
-	}
-	
-	public Customer() {
-		logger.info("<constructor>");	
-	}
+   @ManyToOne
+   private AbstractTouchpoint preferredTouchpoint;
 
-	public Customer(String firstName, String lastName, Gender gender) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
-	}
+   /*
+    * Ü1.2
+    */
+   // @OneToMany(mappedBy="customer", fetch=FetchType.LAZY)
+   @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+   private Collection<CustomerTransaction> transactions;
 
-	public Customer(String firstName, String lastName, Gender gender,
-			String mobilePhoneId) {
-		this(firstName, lastName, gender);
-		this.mobilePhoneId = mobilePhoneId;
-	}
+   public void addTouchpoint(AbstractTouchpoint touchpoint) {
+      this.touchpoints.add(touchpoint);
+   }
 
-	public Customer(int id) {
-		this.id = id;
-	}
+   public Customer() {
+      logger.info("<constructor>");
+   }
 
-	public String getFirstName() {
-		return firstName;
-	}
+   public Customer(String firstName, String lastName, Gender gender) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.gender = gender;
+   }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+   public Customer(String firstName, String lastName, Gender gender, String mobilePhoneId) {
+      this(firstName, lastName, gender);
+      this.mobilePhoneId = mobilePhoneId;
+   }
 
-	public String getLastName() {
-		return lastName;
-	}
+   public Customer(int id) {
+      this.id = id;
+   }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+   public String getFirstName() {
+      return firstName;
+   }
 
-	public String getMobilePhoneId() {
-		return mobilePhoneId;
-	}
+   public void setFirstName(String firstName) {
+      this.firstName = firstName;
+   }
 
-	public void setMobilePhoneId(String mobilePhoneID) {
-		this.mobilePhoneId = mobilePhoneID;
-	}
+   public String getLastName() {
+      return lastName;
+   }
 
-	public String getEmail() {
-		return email;
-	}
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
+   }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+   public String getMobilePhoneId() {
+      return mobilePhoneId;
+   }
 
-	public Address getAddress() {
-		return address;
-	}
+   public void setMobilePhoneId(String mobilePhoneID) {
+      this.mobilePhoneId = mobilePhoneID;
+   }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+   public String getEmail() {
+      return email;
+   }
 
-	public Collection<AbstractTouchpoint> getTouchpoints() {
-		return touchpoints;
-	}
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
-	public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
-		this.touchpoints = touchpoints;
-	}
+   public Address getAddress() {
+      return address;
+   }
 
-	public AbstractTouchpoint getPreferredTouchpoint() {
-		return preferredTouchpoint;
-	}
+   public void setAddress(Address address) {
+      this.address = address;
+   }
 
-	public void setPreferredTouchpoint(AbstractTouchpoint preferredTouchpoint) {
-		this.preferredTouchpoint = preferredTouchpoint;
-	}
+   public Collection<AbstractTouchpoint> getTouchpoints() {
+      return touchpoints;
+   }
 
-	public String toString() {
-		return "{Customer " +  this.id + " " + this.firstName + " " + this.lastName
-				+ " (" + this.gender + ") " + this.email + ", "
-				+ this.mobilePhoneId + ", " + this.address + "}";
-	}
-	
-	public void setGender(Gender gd) {
-		this.gender = gd;
-	}
-	
-	public Gender getGender() {
-		return this.gender;
-	}
+   public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
+      this.touchpoints = touchpoints;
+   }
 
-	public boolean equals(Object other) {
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
+   public AbstractTouchpoint getPreferredTouchpoint() {
+      return preferredTouchpoint;
+   }
 
-	public Collection<CustomerTransaction> getTransactions() {
-		return transactions;
-	}
+   public void setPreferredTouchpoint(AbstractTouchpoint preferredTouchpoint) {
+      this.preferredTouchpoint = preferredTouchpoint;
+   }
 
-	public void setTransactions(Collection<CustomerTransaction> transactions) {
-		this.transactions = transactions;
-	}
-	
-	/*
-	 * lifecycle logging
-	 */
-	
-	@PostLoad
-	public void onPostLoad() {
-		logger.info("@PostLoad: " + this);
-	}
-	
-	@PostPersist
-	public void onPostPersist() {
-		logger.info("@PostPersist: " + this);		
-	}
-	
-	@PostRemove
-	public void onPostRemove() {
-		logger.info("@PostRemove: " + this);
-	}
+   @Override
+   public String toString() {
+      return "{Customer " + this.id + " " + this.firstName + " " + this.lastName + " (" + this.gender + ") " + this.email + ", " + this.mobilePhoneId + ", " + this.address + "}";
+   }
 
-	@PostUpdate
-	public void onPostUpdate() {
-		logger.info("@PostUpdate: " + this);
-	}
-	
-	@PrePersist
-	public void onPrePersist() {
-		logger.info("@PrePersist: " + this);
-	}
+   public void setGender(Gender gd) {
+      this.gender = gd;
+   }
 
-	@PreRemove
-	public void onPreRemove() {
-		logger.info("@PreRemove: " + this);
-	}
+   public Gender getGender() {
+      return this.gender;
+   }
 
-	@PreUpdate
-	public void onPreUpdate() {
-		logger.info("@PreUpdate: " + this);		
-	}
-	
+   @Override
+   public boolean equals(Object other) {
+      return EqualsBuilder.reflectionEquals(this, other);
+   }
+
+   public Collection<CustomerTransaction> getTransactions() {
+      return transactions;
+   }
+
+   public void setTransactions(Collection<CustomerTransaction> transactions) {
+      this.transactions = transactions;
+   }
+
+   /*
+    * lifecycle logging
+    */
+
+   @PostLoad
+   public void onPostLoad() {
+      logger.info("@PostLoad: " + this);
+   }
+
+   @PostPersist
+   public void onPostPersist() {
+      logger.info("@PostPersist: " + this);
+   }
+
+   @PostRemove
+   public void onPostRemove() {
+      logger.info("@PostRemove: " + this);
+   }
+
+   @PostUpdate
+   public void onPostUpdate() {
+      logger.info("@PostUpdate: " + this);
+   }
+
+   @PrePersist
+   public void onPrePersist() {
+      logger.info("@PrePersist: " + this);
+   }
+
+   @PreRemove
+   public void onPreRemove() {
+      logger.info("@PreRemove: " + this);
+   }
+
+   @PreUpdate
+   public void onPreUpdate() {
+      logger.info("@PreUpdate: " + this);
+   }
+
 }
