@@ -36,7 +36,7 @@ public class CreateProducts {
          Collection<AbstractProduct> printProducts = printProducts(abstractProductCRUDRemote);
 
          AbstractProduct readAbstractProduct = abstractProductCRUDRemote.readAbstractProduct(item.getId());
-         readAbstractProduct.setName("TEST  updated");
+         readAbstractProduct.setName("TEST updated");
          abstractProductCRUDRemote.updateAbstractProduct(readAbstractProduct);
 
          printProducts(abstractProductCRUDRemote);
