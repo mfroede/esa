@@ -1,6 +1,7 @@
 package org.dieschnittstelle.jee.esa.erp.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -15,110 +16,109 @@ import javax.persistence.Table;
 
 import org.jboss.logging.Logger;
 
-//@Entity
+@Entity
 @Table(name = "stock")
 @IdClass(ProductAtPosPK.class)
 public class StockItem {
 
-	protected static Logger logger = Logger.getLogger(StockItem.class);
+   protected static Logger logger = Logger.getLogger(StockItem.class);
 
-	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private PointOfSale pos;
+   @Id
+   @ManyToOne(cascade = CascadeType.MERGE)
+   private PointOfSale pos;
 
-	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private AbstractProduct product;
+   @Id
+   @ManyToOne(cascade = CascadeType.MERGE)
+   private AbstractProduct product;
 
-	private int price;
-	
-	private int units;
+   private int price;
 
-	public StockItem() {
+   private int units;
 
-	}
+   public StockItem() {
 
-	public StockItem(AbstractProduct product,
-			PointOfSale pos, int units) {
-		this.product = product;
-		this.pos = pos;
-		this.price = price;
-	}
+   }
 
-	public PointOfSale getPos() {
-		return pos;
-	}
+   public StockItem(AbstractProduct product, PointOfSale pos, int units, int price) {
+      this.product = product;
+      this.pos = pos;
+      this.price = price;
+   }
 
-	public void setPos(PointOfSale pos) {
-		this.pos = pos;
-	}
+   public PointOfSale getPos() {
+      return pos;
+   }
 
-	public AbstractProduct getProduct() {
-		return product;
-	}
+   public void setPos(PointOfSale pos) {
+      this.pos = pos;
+   }
 
-	public void setProduct(AbstractProduct product) {
-		this.product = product;
-	}
+   public AbstractProduct getProduct() {
+      return product;
+   }
 
-	public int getPrice() {
-		return price;
-	}
+   public void setProduct(AbstractProduct product) {
+      this.product = product;
+   }
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
+   public int getPrice() {
+      return price;
+   }
 
-	/*
-	 * the lifecycle log messages
-	 */
+   public void setPrice(int price) {
+      this.price = price;
+   }
 
-	@PostLoad
-	public void onPostLoad() {
-		logger.info("onPostLoad(): " + this);
-	}
+   /*
+    * the lifecycle log messages
+    */
 
-	@PostPersist
-	public void onPostPersist() {
-		logger.info("onPostPersist(): " + this);
-	}
+   @PostLoad
+   public void onPostLoad() {
+      logger.info("onPostLoad(): " + this);
+   }
 
-	@PostRemove
-	public void onPostRemove() {
-		logger.info("onPostRemove(): " + this);
-	}
+   @PostPersist
+   public void onPostPersist() {
+      logger.info("onPostPersist(): " + this);
+   }
 
-	@PostUpdate
-	public void onPostUpdate() {
-		logger.info("onPostUpdate(): " + this);
-	}
+   @PostRemove
+   public void onPostRemove() {
+      logger.info("onPostRemove(): " + this);
+   }
 
-	@PrePersist
-	public void onPrePersist() {
-		logger.info("onPrePersist(): " + this);
-	}
+   @PostUpdate
+   public void onPostUpdate() {
+      logger.info("onPostUpdate(): " + this);
+   }
 
-	@PreRemove
-	public void onPreRemove() {
-		logger.info("onPreRemove(): " + this);
-	}
+   @PrePersist
+   public void onPrePersist() {
+      logger.info("onPrePersist(): " + this);
+   }
 
-	@PreUpdate
-	public void onPreUpdate() {
-		logger.info("onPreUpdate(): " + this);
-	}
+   @PreRemove
+   public void onPreRemove() {
+      logger.info("onPreRemove(): " + this);
+   }
 
-	public String toString() {
-		return "{StockItemEntity " + this.price + ", " + this.product + "@"
-				+ this.pos + "}";
-	}
+   @PreUpdate
+   public void onPreUpdate() {
+      logger.info("onPreUpdate(): " + this);
+   }
 
-	public int getUnits() {
-		return units;
-	}
+   @Override
+   public String toString() {
+      return "{StockItemEntity " + this.price + ", " + this.product + "@" + this.pos + "}";
+   }
 
-	public void setUnits(int units) {
-		this.units = units;
-	}
+   public int getUnits() {
+      return units;
+   }
+
+   public void setUnits(int units) {
+      this.units = units;
+   }
 
 }

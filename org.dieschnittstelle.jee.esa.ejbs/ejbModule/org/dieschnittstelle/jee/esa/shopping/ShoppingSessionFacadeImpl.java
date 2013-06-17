@@ -13,24 +13,29 @@ import org.dieschnittstelle.jee.esa.crm.model.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.crm.model.CrmProductBundle;
 import org.dieschnittstelle.jee.esa.crm.model.Customer;
 import org.dieschnittstelle.jee.esa.crm.model.CustomerTransaction;
+import org.dieschnittstelle.jee.esa.erp.ejbs.StockSystem;
 import org.dieschnittstelle.jee.esa.erp.model.AbstractProduct;
 import org.dieschnittstelle.jee.esa.erp.model.Campaign;
+import org.dieschnittstelle.jee.esa.erp.model.IndividualisedProductItem;
 
 @Stateful
 public class ShoppingSessionFacadeImpl implements ShoppingSessionFacade {
    protected static Logger logger = Logger.getLogger(ShoppingSessionFacadeImpl.class.getName());
-   @EJB(beanName="shoppingCart")
+   @EJB(beanName = "shoppingCart")
    private ShoppingCartRemote shoppingCart;
 
-   @EJB(beanName="customerTracking")
+   @EJB(beanName = "stockSystem")
+   private StockSystem stockSystem;
+
+   @EJB(beanName = "customerTracking")
    private CustomerTrackingRemote customerTracking;
 
-   @EJB(beanName="campaignTracking")
+   @EJB(beanName = "campaignTracking")
    private CampaignTrackingRemote campaignTracking;
 
    private AbstractTouchpoint touchpoint;
    private Customer customer;
-   
+
    @Override
    public void setTouchpoint(AbstractTouchpoint touchpoint) {
       this.touchpoint = touchpoint;
@@ -43,42 +48,30 @@ public class ShoppingSessionFacadeImpl implements ShoppingSessionFacade {
 
    @Override
    public void addProduct(AbstractProduct product, int units) {
-      this.shoppingCart.addProductBundle(new CrmProductBundle(product.getId(),
-            units,product instanceof Campaign));      
+      this.shoppingCart.addProductBundle(new CrmProductBundle(product.getId(), units, product instanceof Campaign));
    }
 
    @Override
    public void verifyCampaigns() {
       if (this.customer == null || this.touchpoint == null) {
-         throw new RuntimeException(
-               "cannot verify campaigns! No touchpoint has been set!");
+         throw new RuntimeException("cannot verify campaigns! No touchpoint has been set!");
       }
 
-      for (CrmProductBundle productBundle : this.shoppingCart
-            .getProductBundles()) {
+      for (CrmProductBundle productBundle : this.shoppingCart.getProductBundles()) {
          if (productBundle.isCampaign()) {
             // we check whether we have sufficient campaign items available
-            if (this.campaignTracking
-                  .existsValidCampaignExecutionAtTouchpoint(
-                        productBundle.getErpProductId(),
-                        this.touchpoint) < productBundle.getUnits()) {
-               throw new RuntimeException(
-                     "verifyCampaigns() failed for productBundle "
-                           + productBundle + " at touchpoint "
-                           + this.touchpoint + "!");
+            if (this.campaignTracking.existsValidCampaignExecutionAtTouchpoint(productBundle.getErpProductId(), this.touchpoint) < productBundle.getUnits()) {
+               throw new RuntimeException("verifyCampaigns() failed for productBundle " + productBundle + " at touchpoint " + this.touchpoint + "!");
             }
          }
-      }      
+      }
    }
 
    @Override
    public void purchase() {
-      logger.info("commit()");
 
       if (this.customer == null || this.touchpoint == null) {
-         throw new RuntimeException(
-               "cannot commit shopping session! Either customer or touchpoint has not been set: "
-                     + this.customer + "/" + this.touchpoint);
+         throw new RuntimeException("cannot commit shopping session! Either customer or touchpoint has not been set: " + this.customer + "/" + this.touchpoint);
       }
 
       // verify the campaigns
@@ -86,24 +79,38 @@ public class ShoppingSessionFacadeImpl implements ShoppingSessionFacade {
 
       // read out the products from the cart
       List<CrmProductBundle> products = this.shoppingCart.getProductBundles();
+      List<IndividualisedProductItem> allProductsOnStock = stockSystem.getProductsOnStock(touchpoint.getErpPointOfSaleId());
+
+      for (CrmProductBundle crmProductBundle : products) {
+         IndividualisedProductItem item = null;
+         for (IndividualisedProductItem individualisedProductItem : allProductsOnStock) {
+            if (individualisedProductItem.getId() == crmProductBundle.getErpProductId()) {
+               item = individualisedProductItem;
+               break;
+            }
+         }
+         if (item == null) {
+            throw new IllegalStateException("Product not on stock");
+         }
+         int unitsOnStock = stockSystem.getUnitsOnStock(item, touchpoint.getErpPointOfSaleId());
+         if (unitsOnStock < crmProductBundle.getUnits()) {
+            throw new IllegalStateException("Not enough units in stock to complete purchase");
+         }
+         stockSystem.removeFromStock(item, touchpoint.getErpPointOfSaleId(), crmProductBundle.getUnits());
+      }
 
       // iterate over the products and purchase the campaigns
-      for (CrmProductBundle productBundle : this.shoppingCart
-            .getProductBundles()) {
+      for (CrmProductBundle productBundle : this.shoppingCart.getProductBundles()) {
          if (productBundle.isCampaign()) {
-            this.campaignTracking.purchaseCampaignAtTouchpoint(
-                  productBundle.getErpProductId(), this.touchpoint,
-                  productBundle.getUnits());
+            this.campaignTracking.purchaseCampaignAtTouchpoint(productBundle.getErpProductId(), this.touchpoint, productBundle.getUnits());
          }
       }
 
       // then we add a new customer transaction for the current purchase
-      CustomerTransaction transaction = new CustomerTransaction(
-            this.customer, this.touchpoint, products);
+      CustomerTransaction transaction = new CustomerTransaction(this.customer, this.touchpoint, products);
       transaction.setCompleted(true);
       customerTracking.createTransaction(transaction);
 
-      logger.info("commit(): done.");      
+      logger.info("commit(): done.");
    }
-
 }

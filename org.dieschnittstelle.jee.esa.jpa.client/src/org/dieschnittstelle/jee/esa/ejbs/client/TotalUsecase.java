@@ -4,37 +4,36 @@ import org.apache.log4j.Logger;
 
 public class TotalUsecase {
 
-	protected static Logger logger = Logger.getLogger(TotalUsecase.class);
-	
-	public static void main(String[] args) {
-		
-		CreateProducts.main(new String[]{""});
-		logger.debug("created products");
-		
-		Util.step();
-		
-		CreateTouchpoints.main(new String[]{""});
-		logger.debug("created touchpoints");
-		
-		Util.step();
-		
-		CreateStock.main(new String[]{""});
-		CreateCampaigns.main(new String[]{""});
-		logger.debug("created stocks and campaigns");
-		
-		Util.step();
+   protected static Logger logger = Logger.getLogger(TotalUsecase.class);
 
-		CreateCustomers.main(new String[]{""});
-		logger.debug("created customers");
-		
-		Util.step();
+   public static void main(String[] args) {
 
-		DoShopping.main(new String[]{""});
-		
-		Util.step();
-		
-		ShowTransactions.main(new String[]{""});
-	}
-	
+      CreateProducts.main(new String[] { "" });
+      logger.debug("created products");
+
+      Util.step();
+
+      CreateTouchpoints.main(new String[] { "" });
+      logger.debug("created touchpoints");
+
+      Util.step();
+
+      CreateStock.main(new String[] { "" });
+      CreateCampaigns.main(new String[] { "" });
+      logger.debug("created stocks and campaigns");
+
+      Util.step();
+
+      CreateCustomers.main(new String[] { "" });
+      logger.debug("created customers");
+
+      Util.step();
+
+      DoShopping.main(new String[] { "" });
+
+      Util.step();
+
+      ShowTransactions.main(new String[] { "" });
+   }
+
 }
-
