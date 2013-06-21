@@ -1,0 +1,16 @@
+- Entwicklung einer REST-Schnittstelle
+- Benachrichtigung (Android)
+	Restschnittstelle:
+		- Abruf von Kampagnen unter Angabe eines Zeitraumes und geographischen Bereiches
+	Android/Frontend:
+		- Serviceanwendung über Polling regelmäßig mit angabe von Standort abgerufen
+		- Anzeige als Notification
+- E-Mail Benachrichtigung:
+	Restschnittstelle:
+		- Zeitraumcheck bei gewisser Zeit nicht Anmeldung
+		- senden einer E-Mail als Info
+		- benötigt: Registrierungs-/Loginmethode
+	Frontend:
+		- Registrierung/Login View
+- Erstellung View Komponenten
+- Anpassung des Servers an die Google AppEngine
