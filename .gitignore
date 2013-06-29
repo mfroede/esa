@@ -1,2 +1,8 @@
 *.class
 *~
+
+# gwt caches and compiled units #
+war/gwt_bree/
+gwt-unitCache/
+
+war/WEB-INF/classes/
