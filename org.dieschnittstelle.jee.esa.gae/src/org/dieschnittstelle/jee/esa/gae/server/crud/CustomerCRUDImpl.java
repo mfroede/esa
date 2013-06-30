@@ -9,8 +9,7 @@ import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
 
 public class CustomerCRUDImpl implements CustomerCRUD {
 
-	protected static Logger logger = Logger.getLogger(CustomerCRUDImpl.class
-			.getName());
+	protected static final Logger logger = Logger.getLogger(CustomerCRUDImpl.class.getName());
 
 	EntityManager em = EMF.get().createEntityManager();
 

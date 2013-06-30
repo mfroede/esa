@@ -16,10 +16,10 @@ import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUDImpl;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 
 @Path("/customer")
-public class CustomerResource {
+public class CustomerResource{
 
 	private final CustomerCRUD customerCRUD;
-
+	
 	public CustomerResource() {
 		customerCRUD = new CustomerCRUDImpl();
 	}
