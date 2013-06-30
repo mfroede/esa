@@ -13,3 +13,5 @@ org.dieschnittstelle.jee.esa.gae/war/WEB-INF/lib
 org.dieschnittstelle.jee.esa.gae/.gwt
 org.dieschnittstelle.jee.esa.gae/.settings
 org.dieschnittstelle.jee.esa.gae/war/DieSchnittstelle/
+*/bin/
+*/gen/
