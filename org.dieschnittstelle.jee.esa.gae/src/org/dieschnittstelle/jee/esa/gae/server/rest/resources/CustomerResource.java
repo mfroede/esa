@@ -15,8 +15,6 @@ import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUD;
 import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUDImpl;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 
-import com.google.appengine.api.datastore.KeyFactory;
-
 @Path("/customer")
 public class CustomerResource{
 
@@ -49,9 +47,10 @@ public class CustomerResource{
 	}
 
 	@DELETE
+	@Path("/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteCustomer(String id) {
+	public String deleteCustomer(@PathParam("id") String id) {
 		if (customerCRUD.deleteCustomer(Long.valueOf(id))) {
 			return "success";
 		}

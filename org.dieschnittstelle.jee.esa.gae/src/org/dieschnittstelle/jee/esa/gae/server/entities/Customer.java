@@ -21,7 +21,6 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.google.appengine.api.datastore.Key;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 @Entity
@@ -49,15 +48,15 @@ public class Customer implements Serializable {
 	@ManyToOne(cascade = { CascadeType.ALL })
 	private Address address;
 
-//	@ManyToMany(mappedBy = "customers")
-//	private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
+	@ManyToMany(mappedBy = "customers")
+	private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
 
 	@ManyToOne
 	private AbstractTouchpoint preferredTouchpoint;
 
-//	public void addTouchpoint(AbstractTouchpoint touchpoint) {
-//		this.touchpoints.add(touchpoint);
-//	}
+	public void addTouchpoint(AbstractTouchpoint touchpoint) {
+		this.touchpoints.add(touchpoint);
+	}
 
 	public Customer() {
 		logger.info("<constructor>");
@@ -127,13 +126,13 @@ public class Customer implements Serializable {
 		this.address = address;
 	}
 
-//	public Collection<AbstractTouchpoint> getTouchpoints() {
-//		return touchpoints;
-//	}
-//
-//	public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
-//		this.touchpoints = touchpoints;
-//	}
+	public Collection<AbstractTouchpoint> getTouchpoints() {
+		return touchpoints;
+	}
+
+	public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
+		this.touchpoints = touchpoints;
+	}
 
 	public AbstractTouchpoint getPreferredTouchpoint() {
 		return preferredTouchpoint;
