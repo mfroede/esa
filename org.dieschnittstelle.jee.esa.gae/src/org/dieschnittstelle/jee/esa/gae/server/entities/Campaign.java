@@ -5,8 +5,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
+
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+@Entity
+@MappedSuperclass
 public class Campaign extends AbstractProduct implements Serializable {
 
    private static final long serialVersionUID = 4407600000386810001L;

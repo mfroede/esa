@@ -16,7 +16,7 @@ public abstract class AbstractProduct implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "touchpoint_sequence")
-	protected int id = -1;
+	protected Long id;
 
 	private String name;
 
@@ -30,11 +30,11 @@ public abstract class AbstractProduct implements Serializable {
 		this.name = name;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
