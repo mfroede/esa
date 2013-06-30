@@ -1,8 +1,3 @@
-/*******************************************************************************
- * Qyotta UG (haftungsbeschränkt) (http://www.qyotta.de).
- * All rights reserved.
- * Copyright (c) 2012 Qyotta UG
- *******************************************************************************/
 package org.dieschnittstelle.jee.esa.gae.client.modules.start;
 
 import org.dieschnittstelle.jee.esa.gae.client.common.AbstractActivityDefaultImpl;

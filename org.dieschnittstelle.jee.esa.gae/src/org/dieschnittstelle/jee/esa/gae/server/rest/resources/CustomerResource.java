@@ -15,6 +15,8 @@ import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUD;
 import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUDImpl;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 
+import com.google.appengine.api.datastore.KeyFactory;
+
 @Path("/customer")
 public class CustomerResource{
 
@@ -36,7 +38,7 @@ public class CustomerResource{
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Customer getCustomer(@PathParam("id") String id) {
-		return customerCRUD.readCustomer(Integer.parseInt(id));
+		return customerCRUD.readCustomer(Long.valueOf(id));
 	}
 
 	@POST
@@ -50,7 +52,7 @@ public class CustomerResource{
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteCustomer(String id) {
-		if (customerCRUD.deleteCustomer(Integer.parseInt(id))) {
+		if (customerCRUD.deleteCustomer(Long.valueOf(id))) {
 			return "success";
 		}
 		return "no such customer";

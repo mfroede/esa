@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -20,6 +21,7 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.appengine.api.datastore.Key;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 @Entity
@@ -31,16 +33,8 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 7461272049473919251L;
 
 	@Id
-	@GeneratedValue
-	private int id;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String gender;
 
@@ -55,15 +49,15 @@ public class Customer implements Serializable {
 	@ManyToOne(cascade = { CascadeType.ALL })
 	private Address address;
 
-	@ManyToMany(mappedBy = "customers")
-	private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
+//	@ManyToMany(mappedBy = "customers")
+//	private Collection<AbstractTouchpoint> touchpoints = new HashSet<AbstractTouchpoint>();
 
 	@ManyToOne
 	private AbstractTouchpoint preferredTouchpoint;
 
-	public void addTouchpoint(AbstractTouchpoint touchpoint) {
-		this.touchpoints.add(touchpoint);
-	}
+//	public void addTouchpoint(AbstractTouchpoint touchpoint) {
+//		this.touchpoints.add(touchpoint);
+//	}
 
 	public Customer() {
 		logger.info("<constructor>");
@@ -81,10 +75,18 @@ public class Customer implements Serializable {
 		this.mobilePhoneId = mobilePhoneId;
 	}
 
-	public Customer(int id) {
+	public Customer(Long id) {
 		this.id = id;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -125,13 +127,13 @@ public class Customer implements Serializable {
 		this.address = address;
 	}
 
-	public Collection<AbstractTouchpoint> getTouchpoints() {
-		return touchpoints;
-	}
-
-	public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
-		this.touchpoints = touchpoints;
-	}
+//	public Collection<AbstractTouchpoint> getTouchpoints() {
+//		return touchpoints;
+//	}
+//
+//	public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
+//		this.touchpoints = touchpoints;
+//	}
 
 	public AbstractTouchpoint getPreferredTouchpoint() {
 		return preferredTouchpoint;
