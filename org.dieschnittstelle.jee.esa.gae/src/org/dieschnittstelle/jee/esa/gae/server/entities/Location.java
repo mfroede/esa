@@ -20,94 +20,95 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Location implements Serializable {
 
-	protected static Logger logger = Logger.getLogger(Location.class.getName());
-	
-	/**
+   protected static Logger logger = Logger.getLogger(Location.class.getName());
+
+   /**
 	 * 
 	 */
-	private static final long serialVersionUID = -131090102062445239L;
+   private static final long serialVersionUID = -131090102062445239L;
 
-	private int id = -1;
-	
-	private long geoLat;
-	
-	private long geoLong;
-	
-	@Id
-	@GeneratedValue
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
+   private int id = -1;
 
-	public long getGeoLat() {
-		return geoLat;
-	}
+   private double geoLat;
 
-	public void setGeoLat(long geoLat) {
-		this.geoLat = geoLat;
-	}
+   private double geoLong;
 
-	public long getGeoLong() {
-		return geoLong;
-	}
+   @Id
+   @GeneratedValue
+   public int getId() {
+      return id;
+   }
 
-	public void setGeoLong(long geoLong) {
-		this.geoLong = geoLong;
-	}
-	
-	public boolean equals(Object other) {
-		return EqualsBuilder.reflectionEquals(this, other);
-	}
-	
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
-	
-	/*
-	 * lifecycle logging
-	 */
-	
-	@PostLoad
-	public void onPostLoad() {
-		logger.info("@PostLoad: " + this);
-	}
-	
-	@PostPersist
-	public void onPostPersist() {
-		logger.info("@PostPersist: " + this);		
-	}
-	
-	@PostRemove
-	public void onPostRemove() {
-		logger.info("@PostRemove: " + this);
-	}
+   public void setId(int id) {
+      this.id = id;
+   }
 
-	@PostUpdate
-	public void onPostUpdate() {
-		logger.info("@PostUpdate: " + this);
-	}
-	
-	@PrePersist
-	public void onPrePersist() {
-		logger.info("@PrePersist: " + this);
-	}
+   public double getGeoLat() {
+      return geoLat;
+   }
 
-	@PreRemove
-	public void onPreRemove() {
-		logger.info("@PreRemove: " + this);
-	}
+   public void setGeoLat(double geoLat) {
+      this.geoLat = geoLat;
+   }
 
-	@PreUpdate
-	public void onPreUpdate() {
-		logger.info("@PreUpdate: " + this);		
-	}
+   public double getGeoLong() {
+      return geoLong;
+   }
 
+   public void setGeoLong(double d) {
+      this.geoLong = d;
+   }
+
+   @Override
+   public boolean equals(Object other) {
+      return EqualsBuilder.reflectionEquals(this, other);
+   }
+
+   @Override
+   public int hashCode() {
+      return HashCodeBuilder.reflectionHashCode(this);
+   }
+
+   /*
+    * lifecycle logging
+    */
+
+   @PostLoad
+   public void onPostLoad() {
+      logger.info("@PostLoad: " + this);
+   }
+
+   @PostPersist
+   public void onPostPersist() {
+      logger.info("@PostPersist: " + this);
+   }
+
+   @PostRemove
+   public void onPostRemove() {
+      logger.info("@PostRemove: " + this);
+   }
+
+   @PostUpdate
+   public void onPostUpdate() {
+      logger.info("@PostUpdate: " + this);
+   }
+
+   @PrePersist
+   public void onPrePersist() {
+      logger.info("@PrePersist: " + this);
+   }
+
+   @PreRemove
+   public void onPreRemove() {
+      logger.info("@PreRemove: " + this);
+   }
+
+   @PreUpdate
+   public void onPreUpdate() {
+      logger.info("@PreUpdate: " + this);
+   }
 
 }
