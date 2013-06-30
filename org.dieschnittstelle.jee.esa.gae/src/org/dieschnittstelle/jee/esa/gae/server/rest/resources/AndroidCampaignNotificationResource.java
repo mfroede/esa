@@ -18,33 +18,30 @@ import org.dieschnittstelle.jee.esa.gae.server.gcm.Sender;
 @Path("/campaignnotifications")
 public class AndroidCampaignNotificationResource {
 
-	private final Sender sender;
+   private final Sender sender;
 
-	public AndroidCampaignNotificationResource() {
-		sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
-	}
+   public AndroidCampaignNotificationResource() {
+      sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
+   }
 
-	@GET
-	@Path("/register/{deviceId}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String registerForNotification(@PathParam("deviceId") String deviceId) {
-		Datastore.register(deviceId);
-		return "success";
-	}
+   @GET
+   @Path("/register/{deviceId}")
+   @Produces(MediaType.TEXT_PLAIN)
+   public String registerForNotification(@PathParam("deviceId") String deviceId) {
+      Datastore.register(deviceId);
+      return "success";
+   }
 
-	@POST
-	@Path("/send")
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String sendMessage(String message) {
-		try {
-			MulticastResult send = sender.send(
-					new Message.Builder().addData("message", message).build(),
-					Datastore.getDevices(), 1);
-			return "success:" + send.getSuccess();
-		} catch (IOException e) {
-			return e.getMessage();
-		}
-
-	}
+   @POST
+   @Path("/send")
+   @Consumes(MediaType.TEXT_PLAIN)
+   @Produces(MediaType.TEXT_PLAIN)
+   public String sendMessage(String message) {
+      try {
+         MulticastResult send = sender.send(new Message.Builder().addData("message", message).build(), Datastore.getDevices(), 1);
+         return "success:" + send.getSuccess();
+      } catch (IOException e) {
+         return e.getMessage();
+      }
+   }
 }
