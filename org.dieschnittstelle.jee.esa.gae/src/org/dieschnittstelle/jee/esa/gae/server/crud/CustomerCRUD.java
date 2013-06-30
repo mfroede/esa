@@ -6,12 +6,12 @@ public interface CustomerCRUD {
 	
 	public Customer createCustomer(Customer customer);
 
-	public Customer readCustomer(int id);
+	public Customer readCustomer(Long id);
 
 	public Customer updateCustomer(Customer customer);
 		
 	public Customer updateCustomerWithSleep(Customer customer,long sleep);
 	
-	public boolean deleteCustomer(int id);
+	public boolean deleteCustomer(Long id);
 
 }

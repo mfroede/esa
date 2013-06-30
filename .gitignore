@@ -2,7 +2,11 @@
 *~
 */.classpath
 */.project
+*.symbolMap
+
 # gwt caches and compiled units #
 war/gwt_bree/
 gwt-unitCache/
+org.dieschnittstelle.jee.esa.gae/war/DieSchnittstelle/
+
 

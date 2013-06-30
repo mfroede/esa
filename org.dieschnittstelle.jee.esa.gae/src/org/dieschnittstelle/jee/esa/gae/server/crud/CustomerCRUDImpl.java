@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
 
+import com.google.appengine.api.datastore.Key;
+
 public class CustomerCRUDImpl implements CustomerCRUD {
 
 	protected static final Logger logger = Logger.getLogger(CustomerCRUDImpl.class.getName());
@@ -17,17 +19,19 @@ public class CustomerCRUDImpl implements CustomerCRUD {
 	public Customer createCustomer(Customer customer) {
 		logger.info("createCustomer(): before persist(): " + customer);
 		em.persist(customer);
+		em.close();
 		logger.info("createdCustomer(): after persist(): " + customer);
 		return customer;
 	}
 
 	@Override
-	public Customer readCustomer(int id) {
-		logger.info("readCustomer(): " + id);
+	public Customer readCustomer(Long id) {
+		logger.info("readCustomer() id: " + id);
 
 		Customer customer = em.find(Customer.class, id);
+		em.close();
 
-		logger.info("readCustomer(): " + customer);
+		logger.info("readCustomer() customer: " + customer);
 
 		return customer;
 	}
@@ -36,6 +40,7 @@ public class CustomerCRUDImpl implements CustomerCRUD {
 	public Customer updateCustomer(Customer customer) {
 		logger.info("updateCustomer(): before merge(): " + customer);
 		customer = em.merge(customer);
+		em.close();
 
 		logger.info("updateCustomer(): after merge(): " + customer);
 		return customer;
@@ -52,6 +57,7 @@ public class CustomerCRUDImpl implements CustomerCRUD {
 				+ readCustomer(customer.getId()));
 
 		customer = em.merge(customer);
+		em.close();
 		logger.info("sleep" + sleep + "@" + this + ": after merge(): "
 				+ customer);
 
@@ -69,10 +75,11 @@ public class CustomerCRUDImpl implements CustomerCRUD {
 	}
 
 	@Override
-	public boolean deleteCustomer(int id) {
+	public boolean deleteCustomer(Long id) {
 		logger.info("deleteCustomer(): " + id);
 
 		em.remove(em.find(Customer.class, id));
+		em.close();
 
 		logger.info("deleteCustomer(): done");
 
