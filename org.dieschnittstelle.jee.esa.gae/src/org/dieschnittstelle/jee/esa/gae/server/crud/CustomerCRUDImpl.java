@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
 
-import com.google.appengine.api.datastore.Key;
-
 public class CustomerCRUDImpl implements CustomerCRUD {
 
 	protected static final Logger logger = Logger.getLogger(CustomerCRUDImpl.class.getName());
