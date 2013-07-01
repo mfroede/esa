@@ -2,15 +2,36 @@ package org.dieschnittstelle.jee.esa.gae.server.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import com.google.appengine.api.datastore.Key;
+
+@Entity
 public class ProductBundle implements Serializable {
 
    private static final long serialVersionUID = 1501911067906145681L;
 
-   private Integer id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Key id;
 
+   public Key getId() {
+      return id;
+   }
+
+   public void setId(Key id) {
+      this.id = id;
+   }
+
+   @OneToMany(cascade = CascadeType.ALL)
    private IndividualizedProductItem product;
 
    private int units;
@@ -42,14 +63,6 @@ public class ProductBundle implements Serializable {
    @Override
    public String toString() {
       return "{" + this.product + " (" + this.units + ")}";
-   }
-
-   public Integer getId() {
-      return id;
-   }
-
-   public void setId(Integer id) {
-      this.id = id;
    }
 
    @Override

@@ -2,23 +2,42 @@ package org.dieschnittstelle.jee.esa.gae.server.entities;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * the execution of a campaign for some erpCampaignId, some touchpoint, some
  * quantity of units, some start date and some duration
  */
+@XmlRootElement
 public class CampaignExecution implements Serializable {
 
    private static final long serialVersionUID = 5077516349500947392L;
 
-   private final AbstractTouchpoint touchpoint;
+   private AbstractTouchpoint touchpoint;
 
-   private final int erpCampaignId;
+   private int erpCampaignId;
 
-   private final int units;
+   public void setTouchpoint(AbstractTouchpoint touchpoint) {
+      this.touchpoint = touchpoint;
+   }
+
+   public void setErpCampaignId(int erpCampaignId) {
+      this.erpCampaignId = erpCampaignId;
+   }
+
+   public void setUnits(int units) {
+      this.units = units;
+   }
+
+   public void setDuration(long duration) {
+      this.duration = duration;
+   }
+
+   private int units;
 
    private final long startDate = System.currentTimeMillis();
 
-   private final long duration;
+   private long duration;
 
    public AbstractTouchpoint getTouchpoint() {
       return touchpoint;
@@ -48,14 +67,6 @@ public class CampaignExecution implements Serializable {
     * track the units that are left for this execution
     */
    private int unitsLeft;
-
-   public CampaignExecution(AbstractTouchpoint touchpoint, int erpCampaignId, int units, long duration) {
-      this.touchpoint = touchpoint;
-      this.erpCampaignId = erpCampaignId;
-      this.units = units;
-      this.duration = duration;
-      this.unitsLeft = units;
-   }
 
    /**
     * purchase a given number of units

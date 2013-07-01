@@ -1,6 +1,8 @@
 package org.dieschnittstelle.jee.esa.gae.server.rest.resources;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -12,15 +14,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 
-import org.dieschnittstelle.jee.esa.gae.server.entities.AbstractTouchpoint;
+import org.dieschnittstelle.jee.esa.gae.server.crud.CampaignCRUD;
+import org.dieschnittstelle.jee.esa.gae.server.crud.CampaignCRUDImpl;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Address;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Campaign;
 import org.dieschnittstelle.jee.esa.gae.server.entities.CampaignExecution;
-import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
+import org.dieschnittstelle.jee.esa.gae.server.entities.IndividualizedProductItem;
+import org.dieschnittstelle.jee.esa.gae.server.entities.ProductBundle;
 import org.dieschnittstelle.jee.esa.gae.server.entities.StationaryTouchpoint;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Datastore;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Message;
-import org.dieschnittstelle.jee.esa.gae.server.gcm.MulticastResult;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Sender;
 
 import com.google.gson.Gson;
@@ -32,15 +35,18 @@ public class CampaignResource {
 
    private final Sender sender;
 
+   private final CampaignCRUD campaignCRUD;
+
    public CampaignResource() {
       sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
+      campaignCRUD = new CampaignCRUDImpl();
    }
 
    @PUT
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Campaign createCampaign(JAXBElement<Campaign> campaignDTO) {
-      return campaignDTO.getValue();
+      return campaignCRUD.createCampaign(campaignDTO.getValue());
    }
 
    @POST
@@ -52,9 +58,31 @@ public class CampaignResource {
    }
 
    @GET
+   @Path("test2")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Campaign getCampaign() {
+      Campaign c = new Campaign();
+      ProductBundle pb = new ProductBundle();
+      IndividualizedProductItem product = new IndividualizedProductItem();
+      product.setName("Coffee");
+      product.setPrice(50);
+
+      pb.setProduct(product);
+      pb.setUnits(3564655);
+
+      List<ProductBundle> bundles = new ArrayList<>();
+      bundles.add(pb);
+      c.setBundles(bundles);
+      c.setName("Coffee Campaign");
+      c.setPrice(50000);
+      return c;
+   }
+
+   @GET
    @Path("test")
    @Produces(MediaType.APPLICATION_JSON)
    public CampaignExecution getCampaignEx() {
+
       StationaryTouchpoint st = new StationaryTouchpoint();
       Address location = new Address();
       location.setCity("Berlin");
@@ -67,7 +95,11 @@ public class CampaignResource {
       st.setLocation(location);
       st.setErpPointOfSaleId(0);
       st.setName("CoffeeShop");
-      CampaignExecution ce = new CampaignExecution(st, 0, 100, 2000000);
+      CampaignExecution ce = new CampaignExecution();
+      ce.setTouchpoint(st);
+      ce.setDuration(2000000);
+      ce.setUnits(100);
+      ce.setErpCampaignId(0);
       return ce;
    }
 

@@ -20,113 +20,110 @@ import javax.persistence.Transient;
  * a product bundle on the part of the crm system that tracks the number of
  * units for some erpProductId and also tracks wheher the product is a campaign
  */
-@Entity
 public class CrmProductBundle implements Serializable {
 
-	protected static Logger logger = Logger.getLogger(CrmProductBundle.class
-			.getName());
+   protected static Logger logger = Logger.getLogger(CrmProductBundle.class.getName());
 
-	private static final long serialVersionUID = 5027719621777767575L;
+   private static final long serialVersionUID = 5027719621777767575L;
 
-	@Id
-	@GeneratedValue
-	private int id = -1;
+   @Id
+   @GeneratedValue
+   private final int id = -1;
 
-	private int erpProductId;
+   private int erpProductId;
 
-	private int units;
+   private int units;
 
-	private boolean isCampaign;
+   private boolean isCampaign;
 
-	@Transient
-	@PrimaryKey
-	private AbstractProduct productObj;
+   @Transient
+   @PrimaryKey
+   private AbstractProduct productObj;
 
-	public CrmProductBundle() {
-		logger.info("<constructor>");
-	}
+   public CrmProductBundle() {
+      logger.info("<constructor>");
+   }
 
-	public CrmProductBundle(int erpProductId, int units) {
-		this(erpProductId, units, false);
-	}
+   public CrmProductBundle(int erpProductId, int units) {
+      this(erpProductId, units, false);
+   }
 
-	public CrmProductBundle(int erpProductId, int units, boolean isCampaign) {
-		this.erpProductId = erpProductId;
-		this.units = units;
-		this.isCampaign = isCampaign;
-	}
+   public CrmProductBundle(int erpProductId, int units, boolean isCampaign) {
+      this.erpProductId = erpProductId;
+      this.units = units;
+      this.isCampaign = isCampaign;
+   }
 
-	public int getId() {
-		return id;
-	}
+   public int getId() {
+      return id;
+   }
 
-	public int getErpProductId() {
-		return erpProductId;
-	}
+   public int getErpProductId() {
+      return erpProductId;
+   }
 
-	public int getUnits() {
-		return units;
-	}
+   public int getUnits() {
+      return units;
+   }
 
-	public void setUnits(int units) {
-		this.units = units;
-	}
+   public void setUnits(int units) {
+      this.units = units;
+   }
 
-	public boolean isCampaign() {
-		return isCampaign;
-	}
+   public boolean isCampaign() {
+      return isCampaign;
+   }
 
-	@Override
-	public String toString() {
-		return "{CrmProductBundle " + this.id + " (" + this.erpProductId + ":"
-				+ this.units + ")}";
-	}
+   @Override
+   public String toString() {
+      return "{CrmProductBundle " + this.id + " (" + this.erpProductId + ":" + this.units + ")}";
+   }
 
-	/*
-	 * lifecycle logging
-	 */
+   /*
+    * lifecycle logging
+    */
 
-	@PostLoad
-	public void onPostLoad() {
-		logger.info("@PostLoad: " + this);
-	}
+   @PostLoad
+   public void onPostLoad() {
+      logger.info("@PostLoad: " + this);
+   }
 
-	@PostPersist
-	public void onPostPersist() {
-		logger.info("@PostPersist: " + this);
-	}
+   @PostPersist
+   public void onPostPersist() {
+      logger.info("@PostPersist: " + this);
+   }
 
-	@PostRemove
-	public void onPostRemove() {
-		logger.info("@PostRemove: " + this);
-	}
+   @PostRemove
+   public void onPostRemove() {
+      logger.info("@PostRemove: " + this);
+   }
 
-	@PostUpdate
-	public void onPostUpdate() {
-		logger.info("@PostUpdate: " + this);
-	}
+   @PostUpdate
+   public void onPostUpdate() {
+      logger.info("@PostUpdate: " + this);
+   }
 
-	@PrePersist
-	public void onPrePersist() {
-		logger.info("@PrePersist: " + this);
-	}
+   @PrePersist
+   public void onPrePersist() {
+      logger.info("@PrePersist: " + this);
+   }
 
-	@PreRemove
-	public void onPreRemove() {
-		logger.info("@PreRemove: " + this);
-	}
+   @PreRemove
+   public void onPreRemove() {
+      logger.info("@PreRemove: " + this);
+   }
 
-	@PreUpdate
-	public void onPreUpdate() {
-		logger.info("@PreUpdate: " + this);
-	}
+   @PreUpdate
+   public void onPreUpdate() {
+      logger.info("@PreUpdate: " + this);
+   }
 
-	public AbstractProduct getProductObj() {
-		return productObj;
-	}
+   public AbstractProduct getProductObj() {
+      return productObj;
+   }
 
-	public void setProductObj(AbstractProduct productObj) {
-		this.productObj = productObj;
-	}
+   public void setProductObj(AbstractProduct productObj) {
+      this.productObj = productObj;
+   }
 
 }
