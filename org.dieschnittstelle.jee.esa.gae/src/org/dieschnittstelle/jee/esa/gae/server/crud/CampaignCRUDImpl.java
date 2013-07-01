@@ -9,79 +9,74 @@ import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
 
 public class CampaignCRUDImpl implements CampaignCRUD {
 
-	protected static final Logger logger = Logger.getLogger(CampaignCRUDImpl.class.getName());
+   protected static final Logger logger = Logger.getLogger(CampaignCRUDImpl.class.getName());
 
-	EntityManager em = EMF.get().createEntityManager();
+   EntityManager em = EMF.get().createEntityManager();
 
-	@Override
-	public Campaign createCampaign(Campaign campaign) {
-		logger.info("createCampaign(): before persist(): " + campaign);
-		em.persist(campaign);
-		em.close();
-		logger.info("createdCampaign(): after persist(): " + campaign);
-		return campaign;
-	}
+   @Override
+   public Campaign createCampaign(Campaign campaign) {
+      logger.info("createCampaign(): before persist(): " + campaign);
+      em.persist(campaign);
+      em.close();
+      logger.info("createdCampaign(): after persist(): " + campaign);
+      return campaign;
+   }
 
-	@Override
-	public Campaign readCampaign(Long id) {
-		logger.info("readCampaign() id: " + id);
+   @Override
+   public Campaign readCampaign(Long id) {
+      logger.info("readCampaign() id: " + id);
 
-		Campaign campaign = em.find(Campaign.class, id);
-		em.close();
+      Campaign campaign = em.find(Campaign.class, id);
+      em.close();
 
-		logger.info("readCampaign() campaign: " + campaign);
+      logger.info("readCampaign() campaign: " + campaign);
 
-		return campaign;
-	}
+      return campaign;
+   }
 
-	@Override
-	public Campaign updateCampaign(Campaign campaign) {
-		logger.info("updateCampaign(): before merge(): " + campaign);
-		campaign = em.merge(campaign);
-		em.close();
+   @Override
+   public Campaign updateCampaign(Campaign campaign) {
+      logger.info("updateCampaign(): before merge(): " + campaign);
+      campaign = em.merge(campaign);
+      em.close();
 
-		logger.info("updateCampaign(): after merge(): " + campaign);
-		return campaign;
-	}
+      logger.info("updateCampaign(): after merge(): " + campaign);
+      return campaign;
+   }
 
-	@Override
-	public Campaign updateCampaignWithSleep(Campaign campaign, long sleep) {
-		logger.info("sleep" + sleep + "@" + this + ": entity manager is: " + em);
-		logger.info("sleep" + sleep + "@" + this
-				+ ": before merge(): got remote: " + campaign);
-		// we read out the campaign using the provided method
-		logger.info("sleep" + sleep + "@" + this
-				+ ": before merge(): got local: "
-				+ readCampaign(campaign.getId()));
+   @Override
+   public Campaign updateCampaignWithSleep(Campaign campaign, long sleep) {
+      logger.info("sleep" + sleep + "@" + this + ": entity manager is: " + em);
+      logger.info("sleep" + sleep + "@" + this + ": before merge(): got remote: " + campaign);
+      // we read out the campaign using the provided method
+      logger.info("sleep" + sleep + "@" + this + ": before merge(): got local: " + readCampaign(campaign.getId()));
 
-		campaign = em.merge(campaign);
-		em.close();
-		logger.info("sleep" + sleep + "@" + this + ": after merge(): "
-				+ campaign);
+      campaign = em.merge(campaign);
+      em.close();
+      logger.info("sleep" + sleep + "@" + this + ": after merge(): " + campaign);
 
-		try {
-			Thread.sleep(sleep);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+      try {
+         Thread.sleep(sleep);
+      } catch (InterruptedException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
 
-		logger.info("sleep" + sleep + "@" + this + ": after sleep(): "
-				+ campaign);
+      logger.info("sleep" + sleep + "@" + this + ": after sleep(): " + campaign);
 
-		return campaign;
-	}
+      return campaign;
+   }
 
-	@Override
-	public boolean deleteCampaign(Long id) {
-		logger.info("deleteCampaign(): " + id);
+   @Override
+   public boolean deleteCampaign(Long id) {
+      logger.info("deleteCampaign(): " + id);
 
-		em.remove(em.find(Campaign.class, id));
-		em.close();
+      em.remove(em.find(Campaign.class, id));
+      em.close();
 
-		logger.info("deleteCampaign(): done");
+      logger.info("deleteCampaign(): done");
 
-		return true;
-	}
+      return true;
+   }
 
 }
