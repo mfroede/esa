@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -15,6 +16,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import com.google.appengine.api.datastore.Key;
 
 @Entity
+@XmlRootElement
 public class ProductBundle implements Serializable {
 
    private static final long serialVersionUID = 1501911067906145681L;
@@ -31,7 +33,7 @@ public class ProductBundle implements Serializable {
       this.id = id;
    }
 
-   @OneToMany(cascade = CascadeType.ALL)
+   @OneToOne(cascade = { CascadeType.ALL })
    private IndividualizedProductItem product;
 
    private int units;

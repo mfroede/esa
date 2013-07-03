@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
@@ -25,21 +23,21 @@ public class Location implements Serializable {
    protected static Logger logger = Logger.getLogger(Location.class.getName());
    private static final long serialVersionUID = -131090102062445239L;
 
-   private int id = -1;
-
    private double geoLat;
 
    private double geoLong;
 
-   @Id
-   @GeneratedValue
-   public int getId() {
-      return id;
-   }
-
-   public void setId(int id) {
-      this.id = id;
-   }
+   // @Id
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // private Key id;
+   //
+   // public Key getId() {
+   // return id;
+   // }
+   //
+   // public void setId(Key id) {
+   // this.id = id;
+   // }
 
    public double getGeoLat() {
       return geoLat;

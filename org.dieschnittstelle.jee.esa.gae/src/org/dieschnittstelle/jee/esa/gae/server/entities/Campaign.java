@@ -13,13 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 @Entity
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 public class Campaign implements Serializable {
 
    @Id
@@ -36,10 +38,13 @@ public class Campaign implements Serializable {
 
    private static final long serialVersionUID = 4407600000386810001L;
 
-   @OneToMany(cascade = CascadeType.ALL)
+   @XmlElement
+   @OneToMany(cascade = { CascadeType.ALL })
    private List<ProductBundle> bundles;
 
+   @XmlAttribute
    private String name;
+   @XmlAttribute
    private int price;
 
    public Campaign() {

@@ -14,12 +14,10 @@ public class IndividualizedProductItem extends AbstractProduct {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Key id;
 
-   @Override
    public Key getId() {
       return id;
    }
 
-   @Override
    public void setId(Key id) {
       this.id = id;
    }

@@ -4,19 +4,33 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Address extends Location implements Serializable {
 
    protected static Logger logger = Logger.getLogger(Address.class.getName());
 
-   /**
-	 * 
-	 */
    private static final long serialVersionUID = 1L;
+
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Key id;
+
+   public Key getId() {
+      return id;
+   }
+
+   public void setId(Key id) {
+      this.id = id;
+   }
 
    private String street;
 
