@@ -25,11 +25,8 @@ import org.dieschnittstelle.jee.esa.gae.server.gcm.Sender;
 public class CampaignResource {
 
    private static final String NEW_CAMPAIGN_INFO = "new campaign";
-
    private static final String INFO = "info";
-
    private static final Logger LOGGER = Logger.getLogger(CampaignResource.class.getName());
-
    private final Sender sender;
 
    private final CampaignCRUD campaignCRUD;

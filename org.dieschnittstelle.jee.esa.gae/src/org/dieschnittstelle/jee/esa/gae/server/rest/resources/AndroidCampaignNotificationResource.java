@@ -18,4 +18,12 @@ public class AndroidCampaignNotificationResource {
       Datastore.register(deviceId);
       return "success";
    }
+   
+   @GET
+   @Path("/unregister/{deviceId}")
+   @Produces(MediaType.TEXT_PLAIN)
+   public String unregisterForNotification(@PathParam("deviceId") String deviceId) {
+      Datastore.unregister(deviceId);
+      return "success";
+   }
 }
