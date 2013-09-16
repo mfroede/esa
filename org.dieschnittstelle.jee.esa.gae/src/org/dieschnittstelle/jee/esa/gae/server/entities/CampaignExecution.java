@@ -2,24 +2,33 @@ package org.dieschnittstelle.jee.esa.gae.server.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * the execution of a campaign for some erpCampaignId, some touchpoint, some
- * quantity of units, some start date and some duration
- */
 @XmlRootElement
+@Entity
 public class CampaignExecution implements Serializable {
 
    private static final long serialVersionUID = 5077516349500947392L;
 
-   private AbstractTouchpoint touchpoint;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-   private int erpCampaignId;
-
-   public void setTouchpoint(AbstractTouchpoint touchpoint) {
-      this.touchpoint = touchpoint;
+   public Long getId() {
+      return id;
    }
+
+   public void setId(Long id) {
+      this.id = id;
+   }
+
+   private long touchpointId;
+
+   private long erpCampaignId;
 
    public void setErpCampaignId(int erpCampaignId) {
       this.erpCampaignId = erpCampaignId;
@@ -39,11 +48,7 @@ public class CampaignExecution implements Serializable {
 
    private long duration;
 
-   public AbstractTouchpoint getTouchpoint() {
-      return touchpoint;
-   }
-
-   public int getErpCampaignId() {
+   public long getErpCampaignId() {
       return erpCampaignId;
    }
 
@@ -92,8 +97,16 @@ public class CampaignExecution implements Serializable {
 
    @Override
    public String toString() {
-      return "{CampaignExecution " + this.erpCampaignId + " " + this.touchpoint + " " + this.unitsLeft + "/" + this.units + ", "
+      return "{CampaignExecution " + this.erpCampaignId + " " + this.touchpointId + " " + this.unitsLeft + "/" + this.units + ", "
             + (duration == -1 ? "<no time limit>" : (System.currentTimeMillis() - startDate - duration)) + "}";
+   }
+
+   public long getTouchpointId() {
+      return touchpointId;
+   }
+
+   public void setTouchpointId(long touchpointId) {
+      this.touchpointId = touchpointId;
    }
 
 }

@@ -40,6 +40,13 @@ public class CampaignResource {
       sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
       campaignCRUD = new CampaignCRUDImpl();
       campaignExecutionCRUD = new CampaignExecutionCRUDImpl();
+
+      CampaignExecution ce = new CampaignExecution();
+      ce.setDuration(500000);
+      ce.setErpCampaignId(120);
+      ce.setTouchpointId(1);
+      ce.setUnits(500);
+      campaignExecutionCRUD.createCampaignExecution(ce);
    }
 
    @GET
@@ -75,7 +82,7 @@ public class CampaignResource {
    }
 
    @POST
-   @Path("/execute")
+   @Path("/executions")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public CampaignExecution executeCampaign(JAXBElement<CampaignExecution> campaignExecutionDTO) {
@@ -90,6 +97,12 @@ public class CampaignResource {
       } catch (IOException e) {
          LOGGER.severe(e.getMessage());
       }
+   }
 
+   @GET
+   @Path("/executions")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<CampaignExecution> getAllCampaignExecutions() {
+      return campaignExecutionCRUD.readAllCampaignExecutions();
    }
 }

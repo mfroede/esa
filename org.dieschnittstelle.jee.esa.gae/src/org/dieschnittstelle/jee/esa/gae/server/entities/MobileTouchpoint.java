@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.PostLoad;
@@ -14,78 +13,89 @@ import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@DiscriminatorValue("mobile")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class MobileTouchpoint extends AbstractTouchpoint {
 
-	protected static Logger logger = Logger.getLogger(MobileTouchpoint.class.getName());
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3020587110269172721L;
+   protected static Logger logger = Logger.getLogger(MobileTouchpoint.class.getName());
 
-	@ElementCollection
-	private Collection<String> mobilePhoneIds = new HashSet<String>();
+   private static final long serialVersionUID = -3020587110269172721L;
 
-	public MobileTouchpoint() {
-		logger.info("<constructor>");
-	}
+   @Override
+   public Long getId() {
+      return id;
+   }
 
-	public MobileTouchpoint(String mobilePhoneId) {
-		this.addMobilePhoneId(mobilePhoneId);
-	}
+   public void setId(Long id) {
+      this.id = id;
+   }
 
-	public Collection<String> getMobilePhoneIds() {
-		return mobilePhoneIds;
-	}
+   @ElementCollection
+   private final Collection<String> mobilePhoneIds = new HashSet<String>();
 
-	public void addMobilePhoneId(String mobilePhoneId) {
-		this.mobilePhoneIds.add(mobilePhoneId);
-	}
+   public MobileTouchpoint() {
+      logger.info("<constructor>");
+   }
 
-	public String toString() {
-		return "{MobileTouchpoint " + this.id + "/" + this.erpPointOfSaleId + " " + this.mobilePhoneIds + "}";
-	}
+   public MobileTouchpoint(String mobilePhoneId) {
+      this.addMobilePhoneId(mobilePhoneId);
+   }
 
-	/*
-	 * lifecycle logging
-	 */
-	
-	@PostLoad
-	public void onPostLoad() {
-		logger.info("@PostLoad: " + this);
-	}
-	
-	@PostPersist
-	public void onPostPersist() {
-		logger.info("@PostPersist: " + this);		
-	}
-	
-	@PostRemove
-	public void onPostRemove() {
-		logger.info("@PostRemove: " + this);
-	}
+   public Collection<String> getMobilePhoneIds() {
+      return mobilePhoneIds;
+   }
 
-	@PostUpdate
-	public void onPostUpdate() {
-		logger.info("@PostUpdate: " + this);
-	}
-	
-	@PrePersist
-	public void onPrePersist() {
-		logger.info("@PrePersist: " + this);
-	}
+   public void addMobilePhoneId(String mobilePhoneId) {
+      this.mobilePhoneIds.add(mobilePhoneId);
+   }
 
-	@PreRemove
-	public void onPreRemove() {
-		logger.info("@PreRemove: " + this);
-	}
+   @Override
+   public String toString() {
+      return "{MobileTouchpoint " + this.id + "/" + this.erpPointOfSaleId + " " + this.mobilePhoneIds + "}";
+   }
 
-	@PreUpdate
-	public void onPreUpdate() {
-		logger.info("@PreUpdate: " + this);		
-	}
-	
+   /*
+    * lifecycle logging
+    */
+
+   @PostLoad
+   public void onPostLoad() {
+      logger.info("@PostLoad: " + this);
+   }
+
+   @PostPersist
+   public void onPostPersist() {
+      logger.info("@PostPersist: " + this);
+   }
+
+   @PostRemove
+   public void onPostRemove() {
+      logger.info("@PostRemove: " + this);
+   }
+
+   @PostUpdate
+   public void onPostUpdate() {
+      logger.info("@PostUpdate: " + this);
+   }
+
+   @PrePersist
+   public void onPrePersist() {
+      logger.info("@PrePersist: " + this);
+   }
+
+   @PreRemove
+   public void onPreRemove() {
+      logger.info("@PreRemove: " + this);
+   }
+
+   @PreUpdate
+   public void onPreUpdate() {
+      logger.info("@PreUpdate: " + this);
+   }
+
 }

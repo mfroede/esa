@@ -4,25 +4,18 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
 
 /**
  * this is an abstraction over different touchpoints (with pos being the most
@@ -31,95 +24,69 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
  * @author kreutel
  * 
  */
-// jaxb annotations
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://dieschnittstelle.org/jee/esa/crm/model")
-@XmlSeeAlso({ StationaryTouchpoint.class, MobileTouchpoint.class })
-// jpa annotations
 @Entity
 @MappedSuperclass
-// inheritance
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "touchpointType", discriminatorType = DiscriminatorType.STRING)
-// @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS);
-// @Inheritance(strategy=InheritanceType.JOINED);
-@SequenceGenerator(name = "touchpoint_sequence", sequenceName = "touchpoint_id_sequence")
-// jaxrs/jackson annotations
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public abstract class AbstractTouchpoint implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5207353251688141788L;
+   private static final long serialVersionUID = 5207353251688141788L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "touchpoint_sequence")
-	protected int id = -1;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   protected Long id;
 
-	/**
-	 * the id of the PointOfSale from the erp data
-	 */
-	protected int erpPointOfSaleId;
+   protected int erpPointOfSaleId;
 
-	/**
-	 * the name of the touchpoint
-	 */
-	protected String name;
+   protected String name;
 
-	@XmlTransient
-	@JsonIgnore
-	@ManyToMany
-	private Collection<Customer> customers = new HashSet<Customer>();
+   @XmlTransient
+   @JsonIgnore
+   @ManyToMany
+   private Collection<Customer> customers = new HashSet<Customer>();
 
-	public AbstractTouchpoint() {
+   public AbstractTouchpoint() {
 
-	}
+   }
 
-	public int getId() {
-		return id;
-	}
+   public abstract Long getId();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+   public int getErpPointOfSaleId() {
+      return erpPointOfSaleId;
+   }
 
-	public int getErpPointOfSaleId() {
-		return erpPointOfSaleId;
-	}
+   public void setErpPointOfSaleId(int erpPointOfSaleId) {
+      this.erpPointOfSaleId = erpPointOfSaleId;
+   }
 
-	public void setErpPointOfSaleId(int erpPointOfSaleId) {
-		this.erpPointOfSaleId = erpPointOfSaleId;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public Collection<Customer> getCustomers() {
+      return customers;
+   }
 
-	public Collection<Customer> getCustomers() {
-		return customers;
-	}
+   public void setCustomers(HashSet<Customer> customers) {
+      this.customers = customers;
+   }
 
-	public void setCustomers(HashSet<Customer> customers) {
-		this.customers = customers;
-	}
+   public void addCustomer(Customer customer) {
+      this.customers.add(customer);
+   }
 
-	public void addCustomer(Customer customer) {
-		this.customers.add(customer);
-	}
+   @Override
+   public boolean equals(Object obj) {
 
-	@Override
-	public boolean equals(Object obj) {
+      if (obj == null || !(obj instanceof AbstractTouchpoint)) {
+         return false;
+      }
 
-		if (obj == null || !(obj instanceof AbstractTouchpoint)) {
-			return false;
-		}
-
-		return this.getId() == ((AbstractTouchpoint) obj).getId();
-	}
+      return this.getId() == ((AbstractTouchpoint) obj).getId();
+   }
 
 }

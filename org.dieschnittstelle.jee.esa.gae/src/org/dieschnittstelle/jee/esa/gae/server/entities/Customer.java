@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+import com.google.appengine.api.datastore.Key;
+
 @Entity
 @XmlRootElement
 public class Customer implements Serializable {
@@ -30,7 +32,15 @@ public class Customer implements Serializable {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   private Key id;
+
+   public Key getId() {
+      return id;
+   }
+
+   public void setId(Key id) {
+      this.id = id;
+   }
 
    private String gender;
 
@@ -69,18 +79,6 @@ public class Customer implements Serializable {
    public Customer(String firstName, String lastName, String gender, String mobilePhoneId) {
       this(firstName, lastName, gender);
       this.mobilePhoneId = mobilePhoneId;
-   }
-
-   public Customer(Long id) {
-      this.id = id;
-   }
-
-   public Long getId() {
-      return id;
-   }
-
-   public void setId(Long id) {
-      this.id = id;
    }
 
    public String getFirstName() {
