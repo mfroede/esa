@@ -36,7 +36,7 @@
         </activity>
 
         <receiver
-            android:name="org.dieschnittstelle.jee.esa.android.cns.CnsBroadcastReceiver"
+            android:name="org.dieschnittstelle.jee.esa.android.CnsBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
