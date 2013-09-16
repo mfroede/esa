@@ -1,8 +1,10 @@
 package org.dieschnittstelle.jee.esa.gae.server.crud;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.dieschnittstelle.jee.esa.gae.server.entities.Campaign;
 import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
@@ -16,8 +18,9 @@ public class CampaignCRUDImpl implements CampaignCRUD {
    @Override
    public Campaign createCampaign(Campaign campaign) {
       logger.info("createCampaign(): before persist(): " + campaign);
+      em.getTransaction().begin();
       em.persist(campaign);
-      em.close();
+      em.getTransaction().commit();
       logger.info("createdCampaign(): after persist(): " + campaign);
       return campaign;
    }
@@ -27,7 +30,6 @@ public class CampaignCRUDImpl implements CampaignCRUD {
       logger.info("readCampaign() id: " + id);
 
       Campaign campaign = em.find(Campaign.class, id);
-      em.close();
 
       logger.info("readCampaign() campaign: " + campaign);
 
@@ -35,11 +37,19 @@ public class CampaignCRUDImpl implements CampaignCRUD {
    }
 
    @Override
+   public List<Campaign> readAllCampaigns() {
+      CriteriaQuery<Campaign> criteria = em.getCriteriaBuilder().createQuery(Campaign.class);
+      criteria.select(criteria.from(Campaign.class));
+      List<Campaign> campaigns = em.createQuery(criteria).getResultList();
+      return campaigns;
+   }
+
+   @Override
    public Campaign updateCampaign(Campaign campaign) {
       logger.info("updateCampaign(): before merge(): " + campaign);
+      em.getTransaction().begin();
       campaign = em.merge(campaign);
-      em.close();
-
+      em.getTransaction().commit();
       logger.info("updateCampaign(): after merge(): " + campaign);
       return campaign;
    }
@@ -70,10 +80,9 @@ public class CampaignCRUDImpl implements CampaignCRUD {
    @Override
    public boolean deleteCampaign(Long id) {
       logger.info("deleteCampaign(): " + id);
-
+      em.getTransaction().begin();
       em.remove(em.find(Campaign.class, id));
-      em.close();
-
+      em.getTransaction().commit();
       logger.info("deleteCampaign(): done");
 
       return true;

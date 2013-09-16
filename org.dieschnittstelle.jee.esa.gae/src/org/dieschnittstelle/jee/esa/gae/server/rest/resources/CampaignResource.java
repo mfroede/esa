@@ -1,12 +1,16 @@
 package org.dieschnittstelle.jee.esa.gae.server.rest.resources;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
@@ -38,11 +42,36 @@ public class CampaignResource {
       campaignExecutionCRUD = new CampaignExecutionCRUDImpl();
    }
 
+   @GET
+   @Path("/{id}")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Campaign getCampaignById(@PathParam("id") String id) {
+      return campaignCRUD.readCampaign(Long.valueOf(id));
+   }
+
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Campaign> getAllCampaigns() {
+      return campaignCRUD.readAllCampaigns();
+   }
+
    @PUT
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
    public Campaign createCampaign(JAXBElement<Campaign> campaignDTO) {
       return campaignCRUD.createCampaign(campaignDTO.getValue());
+   }
+
+   @DELETE
+   @Path("/{id}")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.APPLICATION_JSON)
+   public Campaign deleteCampaign(@PathParam("id") String id) {
+      Campaign c = campaignCRUD.readCampaign(Long.valueOf(id));
+      if (c != null) {
+         campaignCRUD.deleteCampaign(c.getId());
+      }
+      return c;
    }
 
    @POST

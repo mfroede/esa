@@ -12,5 +12,5 @@ org.dieschnittstelle.jee.esa.gae/war/WEB-INF/deploy
 org.dieschnittstelle.jee.esa.gae/.gwt
 org.dieschnittstelle.jee.esa.gae/.settings
 org.dieschnittstelle.jee.esa.gae/war/DieSchnittstelle
-org.dieschnittstelle.jee.esa.android.cns/bin
+org.dieschnittstelle.jee.esa.android/bin
 */gen
