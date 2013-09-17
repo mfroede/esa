@@ -1,7 +1,6 @@
 *.class
 *~
 */.classpath
-*/.project
 *.symbolMap
 
 # gwt caches and compiled units #
