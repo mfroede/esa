@@ -1,0 +1,58 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:my="urn:import:org.dieschnittstelle.jee.esa.gae.client.modules.start">
+	<ui:style>
+		.flowhorizontal {
+			display: -webkit-box;
+			width: 50%;
+			padding-left: 377px;
+		}
+		
+		.flowvertical {
+			-webkit-box-orient: vertical;
+			-webkit-box-flex: 1;
+			padding-right: 10%;
+		}
+		
+		.textlabels {
+			font-size: 14px;
+			padding-left: 10%;
+			padding-top: 2.5%;
+		}
+		
+		.flow {
+			font-size: 34px;
+			font-weight: bold;
+			padding: 30px 600px;
+			color: #FF9900;
+		}
+		
+		.flowb {
+			padding: 10px 790px;
+		}
+		
+		.loginbutton {
+			font-size: 16px;
+			font-weight: bold;
+			padding: 10px;
+			color: #336699;
+		}
+	</ui:style>
+	<g:FlowPanel>
+		<g:Label text="Login" styleName="{style.flow}"></g:Label>
+		<g:FlowPanel styleName="{style.flowhorizontal}">
+			<g:FlowPanel styleName="{style.flowvertical}">
+				<g:Label text="Anmeldename" styleName="{style.textlabels}"></g:Label>
+				<g:Label text="Passwort" styleName="{style.textlabels}"></g:Label>
+			</g:FlowPanel>
+			<g:FlowPanel styleName="{style.flowvertical}">
+				<g:TextBox width="50%"></g:TextBox>
+				<g:PasswordTextBox width="50%"></g:PasswordTextBox>
+			</g:FlowPanel>
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.flowb}">
+			<g:Button text="Einloggen" ui:field="button" styleName="{style.loginbutton}"></g:Button>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

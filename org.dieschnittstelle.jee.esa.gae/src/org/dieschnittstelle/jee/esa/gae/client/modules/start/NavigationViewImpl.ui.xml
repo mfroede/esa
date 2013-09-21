@@ -1,0 +1,85 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" >
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+		
+		.backpanel {
+			background-color: #6666FF;
+			background: -webkit-gradient(linear, left top, left bottom, from(#6699FF),
+				to(#336699));
+		}
+		
+		.backfont {
+			padding-top: 30px;
+			padding-left: 50px;
+			font-size: 60px;
+			color: #FF9900;
+		}
+		
+		.backkpanel {
+			background-color: #336699;
+		}
+		
+		.backkkpanel {
+			display: -webkit-box;
+		}
+		/*		.navigationlabel {
+					padding-right: 5%;
+					padding-top: 0.5%;
+					font-weight: bold;
+					color: #333333;
+				}
+				.navigationlabell {
+					padding-right: 30%;
+					padding-top: 0.5%;
+					font-weight: bold;
+					color: #333333;
+				} */
+		.warenkorbimage {
+			background:
+				url("DieSchnittstelle/gwt/standard/images/WarenkorbKlein.png")
+				no-repeat center;
+		}
+		
+		.menubary {
+			background-color: #FFFFFF;
+		}
+		
+		.menuitemy {
+			padding: 5px 10px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		
+		.menuitemx {
+			padding: 5px 310px;
+		}
+		
+		.menuitemy:hover {
+			background-color: #FF9900;
+		}
+	</ui:style>
+	<g:FlowPanel>
+		<g:FlowPanel height="75%" styleName="{style.backpanel}">
+			<g:Label text="Die Schnittstelle" styleName="{style.backfont}" />
+		</g:FlowPanel>
+		<g:MenuBar styleName="{style.menubary}">
+			<g:MenuItem ui:field="menuproducts" text="Produktübersicht"
+				styleName="{style.menuitemy}" />
+			<g:MenuItem text="Händlerübersicht" styleName="{style.menuitemy}" />
+			<g:MenuItem text="Kampagnenübersicht" styleName="{style.menuitemy}" />
+			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+				styleName="{style.menuitemx}" />
+			<g:MenuItem text="Login" styleName="{style.menuitemy}" />
+			<g:MenuItem text="Registrierung" styleName="{style.menuitemy}" />
+			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+				styleName="{style.warenkorbimage} {style.menuitemy}" />
+		</g:MenuBar>
+		<g:FlowPanel height="10%" styleName="{style.backkpanel}" />
+
+		<!-- <g:Button styleName="{style.important}" ui:field="button" /> -->
+	</g:FlowPanel>
+</ui:UiBinder> 

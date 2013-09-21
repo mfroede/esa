@@ -40,13 +40,6 @@ public class CampaignResource {
       sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
       campaignCRUD = new CampaignCRUDImpl();
       campaignExecutionCRUD = new CampaignExecutionCRUDImpl();
-
-      CampaignExecution ce = new CampaignExecution();
-      ce.setDuration(500000);
-      ce.setErpCampaignId(120);
-      ce.setTouchpointId(1);
-      ce.setUnits(500);
-      campaignExecutionCRUD.createCampaignExecution(ce);
    }
 
    @GET

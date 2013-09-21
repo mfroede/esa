@@ -10,8 +10,8 @@ public class AbstractView implements IsWidget {
 
 	public AbstractView() {
 		content = new LayoutPanel();
-		content.getElement().getStyle().setWidth(100, Unit.PC);
-		content.getElement().getStyle().setHeight(100, Unit.PC);
+		content.getElement().getStyle().setWidth(85.4, Unit.PC);
+		content.getElement().getStyle().setHeight(30, Unit.PC);
 	}
 
 	@Override
