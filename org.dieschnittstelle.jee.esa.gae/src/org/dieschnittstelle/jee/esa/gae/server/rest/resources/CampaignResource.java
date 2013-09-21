@@ -28,81 +28,78 @@ import org.dieschnittstelle.jee.esa.gae.server.gcm.Sender;
 @Path("/campaign")
 public class CampaignResource {
 
-   private static final String NEW_CAMPAIGN_INFO = "new campaign";
-   private static final String INFO = "info";
-   private static final Logger LOGGER = Logger.getLogger(CampaignResource.class.getName());
-   private final Sender sender;
+	private static final String NEW_CAMPAIGN_INFO = "new campaign";
+	private static final String INFO = "info";
+	private static final Logger LOGGER = Logger
+			.getLogger(CampaignResource.class.getName());
+	private final Sender sender;
 
-   private final CampaignCRUD campaignCRUD;
-   private final CampaignExecutionCRUD campaignExecutionCRUD;
+	private final CampaignCRUD campaignCRUD;
+	private final CampaignExecutionCRUD campaignExecutionCRUD;
 
-   public CampaignResource() {
-      sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
-      campaignCRUD = new CampaignCRUDImpl();
-      campaignExecutionCRUD = new CampaignExecutionCRUDImpl();
+	public CampaignResource() {
+		sender = new Sender("AIzaSyDgOHQwpaSa78DgcVky3odHawkY994UNe0");
+		campaignCRUD = new CampaignCRUDImpl();
+		campaignExecutionCRUD = new CampaignExecutionCRUDImpl();
+	}
 
-      CampaignExecution ce = new CampaignExecution();
-      ce.setDuration(500000);
-      ce.setErpCampaignId(120);
-      ce.setTouchpointId(1);
-      ce.setUnits(500);
-      campaignExecutionCRUD.createCampaignExecution(ce);
-   }
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Campaign getCampaignById(@PathParam("id") String id) {
+		return campaignCRUD.readCampaign(Long.valueOf(id));
+	}
 
-   @GET
-   @Path("/{id}")
-   @Produces(MediaType.APPLICATION_JSON)
-   public Campaign getCampaignById(@PathParam("id") String id) {
-      return campaignCRUD.readCampaign(Long.valueOf(id));
-   }
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Campaign> getAllCampaigns() {
+		return campaignCRUD.readAllCampaigns();
+	}
 
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   public List<Campaign> getAllCampaigns() {
-      return campaignCRUD.readAllCampaigns();
-   }
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Campaign createCampaign(JAXBElement<Campaign> campaignDTO) {
+		return campaignCRUD.createCampaign(campaignDTO.getValue());
+	}
 
-   @PUT
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Produces(MediaType.APPLICATION_JSON)
-   public Campaign createCampaign(JAXBElement<Campaign> campaignDTO) {
-      return campaignCRUD.createCampaign(campaignDTO.getValue());
-   }
+	@DELETE
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Campaign deleteCampaign(@PathParam("id") String id) {
+		Campaign c = campaignCRUD.readCampaign(Long.valueOf(id));
+		if (c != null) {
+			campaignCRUD.deleteCampaign(c.getId());
+		}
+		return c;
+	}
 
-   @DELETE
-   @Path("/{id}")
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Produces(MediaType.APPLICATION_JSON)
-   public Campaign deleteCampaign(@PathParam("id") String id) {
-      Campaign c = campaignCRUD.readCampaign(Long.valueOf(id));
-      if (c != null) {
-         campaignCRUD.deleteCampaign(c.getId());
-      }
-      return c;
-   }
+	@POST
+	@Path("/executions")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public CampaignExecution executeCampaign(
+			JAXBElement<CampaignExecution> campaignExecutionDTO) {
+		CampaignExecution cpe = campaignExecutionCRUD
+				.createCampaignExecution(campaignExecutionDTO.getValue());
+		notifyRegisteredDevices();
+		return cpe;
+	}
 
-   @POST
-   @Path("/executions")
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Produces(MediaType.APPLICATION_JSON)
-   public CampaignExecution executeCampaign(JAXBElement<CampaignExecution> campaignExecutionDTO) {
-      CampaignExecution cpe = campaignExecutionCRUD.createCampaignExecution(campaignExecutionDTO.getValue());
-      notifyRegisteredDevices();
-      return cpe;
-   }
+	private void notifyRegisteredDevices() {
+		try {
+			sender.send(new Message.Builder().addData(INFO, NEW_CAMPAIGN_INFO)
+					.build(), Datastore.getDevices(), 5);
+		} catch (IOException e) {
+			LOGGER.severe(e.getMessage());
+		}
+	}
 
-   private void notifyRegisteredDevices() {
-      try {
-         sender.send(new Message.Builder().addData(INFO, NEW_CAMPAIGN_INFO).build(), Datastore.getDevices(), 5);
-      } catch (IOException e) {
-         LOGGER.severe(e.getMessage());
-      }
-   }
-
-   @GET
-   @Path("/executions")
-   @Produces(MediaType.APPLICATION_JSON)
-   public List<CampaignExecution> getAllCampaignExecutions() {
-      return campaignExecutionCRUD.readAllCampaignExecutions();
-   }
+	@GET
+	@Path("/executions")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CampaignExecution> getAllCampaignExecutions() {
+		return campaignExecutionCRUD.readAllCampaignExecutions();
+	}
 }
