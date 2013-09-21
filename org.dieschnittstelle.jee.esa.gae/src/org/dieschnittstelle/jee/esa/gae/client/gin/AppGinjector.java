@@ -1,6 +1,7 @@
 package org.dieschnittstelle.jee.esa.gae.client.gin;
 
 import org.dieschnittstelle.jee.esa.gae.client.common.ActivityMapperImpl;
+import org.dieschnittstelle.jee.esa.gae.client.common.NavigationViewActivityMapper;
 
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
@@ -16,4 +17,5 @@ public interface AppGinjector extends Ginjector {
 
 	public ActivityMapperImpl getActivityMapper();
 
+	public NavigationViewActivityMapper getNavigationViewActivityMapper();
 }

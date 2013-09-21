@@ -29,6 +29,15 @@ public class AppEntryPoint implements EntryPoint {
 				activityMapper, eventBus);
 		contentActivityManager.setDisplay(content);
 
+		ActivityMapper activityMapper2 = injector
+				.getNavigationViewActivityMapper();
+		SimplePanel navigation = new SimplePanel();
+
+		ActivityManager contentActivityManager2 = new ActivityManager(
+				activityMapper2, eventBus);
+		contentActivityManager2.setDisplay(navigation);
+
+		RootPanel.get().add(navigation);
 		RootPanel.get().add(content);
 
 		AppPlaceHistoryMapper historyMapper = GWT
