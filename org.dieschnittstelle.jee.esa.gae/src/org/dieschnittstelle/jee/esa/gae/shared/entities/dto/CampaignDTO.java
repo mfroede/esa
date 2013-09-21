@@ -1,4 +1,4 @@
-package org.dieschnittstelle.jee.esa.gae.server.entities.dto;
+package org.dieschnittstelle.jee.esa.gae.shared.entities.dto;
 
 import java.util.List;
 

@@ -24,81 +24,80 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Campaign implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+   @Id
+   @XmlAttribute
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
 
-	public Long getId() {
-		return id;
-	}
+   public Long getId() {
+      return id;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public void setId(Long id) {
+      this.id = id;
+   }
 
-	private static final long serialVersionUID = 4407600000386810001L;
+   private static final long serialVersionUID = 4407600000386810001L;
 
-	@XmlElement
-	@OneToMany(cascade = { CascadeType.ALL })
-	private List<ProductBundle> bundles;
+   @XmlElement
+   @OneToMany(cascade = { CascadeType.ALL })
+   private List<ProductBundle> bundles;
 
-	@XmlAttribute
-	private String name;
-	@XmlAttribute
-	private int price;
-	@XmlAttribute
-	private String imageUrl;
+   @XmlAttribute
+   private String name;
+   @XmlAttribute
+   private int price;
+   @XmlAttribute
+   private String imageUrl;
 
-	public Campaign() {
-		this.bundles = new ArrayList<ProductBundle>();
-	}
+   public Campaign() {
+      this.bundles = new ArrayList<ProductBundle>();
+   }
 
-	public Collection<ProductBundle> getBundles() {
-		return this.bundles;
-	}
+   public Collection<ProductBundle> getBundles() {
+      return this.bundles;
+   }
 
-	public void setBundles(List<ProductBundle> bundles) {
-		this.bundles = bundles;
-	}
+   public void setBundles(List<ProductBundle> bundles) {
+      this.bundles = bundles;
+   }
 
-	public void addBundle(ProductBundle bundle) {
-		this.bundles.add(bundle);
-	}
+   public void addBundle(ProductBundle bundle) {
+      this.bundles.add(bundle);
+   }
 
-	@Override
-	public String toString() {
-		return "{Campaign " + this.getId() + ", " + getName() + ", "
-				+ this.bundles + "}";
-	}
+   @Override
+   public String toString() {
+      return "{Campaign " + this.getId() + ", " + getName() + ", " + this.bundles + "}";
+   }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this,
-				new String[] { "bundles" });
-	}
+   @Override
+   public int hashCode() {
+      return HashCodeBuilder.reflectionHashCode(this, new String[] { "bundles" });
+   }
 
-	public String getName() {
-		return name;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
 
-	public int getPrice() {
-		return price;
-	}
+   public int getPrice() {
+      return price;
+   }
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
+   public void setPrice(int price) {
+      this.price = price;
+   }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+   public String getImageUrl() {
+      return imageUrl;
+   }
 
-	public void setImageUrl(String url) {
-		this.imageUrl = url;
-	}
+   public void setImageUrl(String url) {
+      this.imageUrl = url;
+   }
 
 }

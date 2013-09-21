@@ -1,13 +1,17 @@
-package org.dieschnittstelle.jee.esa.gae.server.entities.dto;
+package org.dieschnittstelle.jee.esa.gae.shared.entities.dto;
 
-public abstract class ProductDTO {
+public class ProductDTO {
 
+   private long id;
    private String name;
-
    private int price;
 
-   public ProductDTO(String name) {
-      this.name = name;
+   public long getId() {
+      return id;
+   }
+
+   public void setId(long id) {
+      this.id = id;
    }
 
    public String getName() {

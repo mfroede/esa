@@ -1,4 +1,4 @@
-package org.dieschnittstelle.jee.esa.gae.server.entities.dto;
+package org.dieschnittstelle.jee.esa.gae.shared.entities.dto;
 
 public class TouchpointDTO {
 
@@ -7,6 +7,8 @@ public class TouchpointDTO {
    protected int erpPointOfSaleId;
 
    protected String name;
+
+   private AddressDTO address;
 
    public Long getId() {
       return id;
@@ -30,6 +32,14 @@ public class TouchpointDTO {
 
    public void setName(String name) {
       this.name = name;
+   }
+
+   public AddressDTO getAddress() {
+      return address;
+   }
+
+   public void setAddress(AddressDTO address) {
+      this.address = address;
    }
 
 }

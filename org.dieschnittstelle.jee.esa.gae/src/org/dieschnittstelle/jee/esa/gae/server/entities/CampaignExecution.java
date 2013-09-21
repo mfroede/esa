@@ -27,12 +27,7 @@ public class CampaignExecution implements Serializable {
    }
 
    private long touchpointId;
-
-   private long erpCampaignId;
-
-   public void setErpCampaignId(int erpCampaignId) {
-      this.erpCampaignId = erpCampaignId;
-   }
+   private long campaignId;
 
    public void setUnits(int units) {
       this.units = units;
@@ -47,10 +42,6 @@ public class CampaignExecution implements Serializable {
    private final long startDate = System.currentTimeMillis();
 
    private long duration;
-
-   public long getErpCampaignId() {
-      return erpCampaignId;
-   }
 
    public int getUnits() {
       return units;
@@ -78,7 +69,7 @@ public class CampaignExecution implements Serializable {
     */
    public void purchase(int units) {
       if (duration != -1 && System.currentTimeMillis() - startDate > duration) {
-         throw new RuntimeException("campaign for " + erpCampaignId + " has expired!");
+         throw new RuntimeException("campaign for " + getCampaignId() + " has expired!");
       }
 
       if (units > unitsLeft) {
@@ -97,7 +88,7 @@ public class CampaignExecution implements Serializable {
 
    @Override
    public String toString() {
-      return "{CampaignExecution " + this.erpCampaignId + " " + this.touchpointId + " " + this.unitsLeft + "/" + this.units + ", "
+      return "{CampaignExecution " + this.getCampaignId() + " " + this.touchpointId + " " + this.unitsLeft + "/" + this.units + ", "
             + (duration == -1 ? "<no time limit>" : (System.currentTimeMillis() - startDate - duration)) + "}";
    }
 
@@ -107,6 +98,14 @@ public class CampaignExecution implements Serializable {
 
    public void setTouchpointId(long touchpointId) {
       this.touchpointId = touchpointId;
+   }
+
+   public long getCampaignId() {
+      return campaignId;
+   }
+
+   public void setCampaignId(long campaignId) {
+      this.campaignId = campaignId;
    }
 
 }

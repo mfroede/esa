@@ -1,8 +1,10 @@
 package org.dieschnittstelle.jee.esa.gae.server.crud;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
 import org.dieschnittstelle.jee.esa.gae.server.persistance.util.EMF;
@@ -77,6 +79,14 @@ public class CustomerCRUDImpl implements CustomerCRUD {
       logger.info("deleteCustomer(): done");
 
       return true;
+   }
+
+   @Override
+   public List<Customer> readAllCustomers() {
+      CriteriaQuery<Customer> criteria = em.getCriteriaBuilder().createQuery(Customer.class);
+      criteria.select(criteria.from(Customer.class));
+      List<Customer> customers = em.createQuery(criteria).getResultList();
+      return customers;
    }
 
 }

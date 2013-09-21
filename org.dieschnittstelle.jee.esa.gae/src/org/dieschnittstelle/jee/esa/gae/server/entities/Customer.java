@@ -45,6 +45,7 @@ public class Customer implements Serializable {
    private String gender;
 
    private String firstName;
+   private String password;
 
    private String lastName;
 
@@ -188,6 +189,14 @@ public class Customer implements Serializable {
    @PreUpdate
    public void onPreUpdate() {
       logger.info("@PreUpdate: " + this);
+   }
+
+   public String getPassword() {
+      return password;
+   }
+
+   public void setPassword(String password) {
+      this.password = password;
    }
 
 }
