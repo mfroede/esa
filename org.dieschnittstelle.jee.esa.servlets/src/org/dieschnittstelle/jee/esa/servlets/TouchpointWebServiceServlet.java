@@ -5,11 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.crm.model.AbstractTouchpoint;
 
 public class TouchpointWebServiceServlet extends HttpServlet {
 
@@ -28,6 +30,7 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 		// obtain the executor for reading out the touchpoints
 		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
 				.getAttribute("touchpointCRUD");
+		String pathInfo = request.getPathInfo();
 		try {
 			// set the status
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -51,7 +54,8 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 	// obtain the executor for reading out the touchpoints
       TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
             .getAttribute("touchpointCRUD");
-      if(exec.deleteTouchpoint(Integer.parseInt(req.getParameter("id")))) {
+      String pathInfo = req.getPathInfo();
+      if(exec.deleteTouchpoint(Integer.parseInt(pathInfo.substring(pathInfo.lastIndexOf("/")+1)))) {
          resp.setStatus(HttpServletResponse.SC_OK);
       } else {
          resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -62,5 +66,15 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 			throws ServletException, IOException {
 	      TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
 	              .getAttribute("touchpointCRUD");
+	      ServletInputStream stream = req.getInputStream();  
+	      ObjectInputStream objStream = new ObjectInputStream(stream);
+	      try {
+			AbstractTouchpoint tp = (AbstractTouchpoint) objStream.readObject();
+			exec.createTouchpoint(tp);
+			resp.setStatus(HttpServletResponse.SC_OK);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
 	}
 }

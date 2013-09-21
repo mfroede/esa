@@ -1,15 +1,23 @@
 package org.dieschnittstelle.jee.esa.servlets.client;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.SerializableEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
@@ -58,13 +66,13 @@ public class TestTouchpointService {
 			e.printStackTrace();
 		}
 
-		Address addr = new Address("Luxemburger Stra§e", "10", "13353",
+		Address addr = new Address("Luxemburger Straï¿½e", "10", "13353",
 				"Berlin");
 		StationaryTouchpoint tp = new StationaryTouchpoint(-1,
 				"BHT Verkaufsstand", addr);
 
 		createNewTouchpoint(client, tp);
-		deleteTouchpoint(client, tp);
+//		touchpoints = readAllTouchpoints(client);
 	}
 
 	private static List<AbstractTouchpoint> readAllTouchpoints(HttpClient client) {
@@ -73,14 +81,14 @@ public class TestTouchpointService {
 		try {
 			
 			// create a GetMethod
-			// Šndern Sie die URL fŸr †1
+			// ï¿½ndern Sie die URL fï¿½r ï¿½1
 			HttpGet get = new HttpGet("http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints");//"http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/gui/touchpoints"
 			// Server asutricksen
-			//			get.addHeader("accept", "text/html");
+//						get.addHeader("accept", "text/html");
 			// execute the method and obtain the response
 			HttpResponse response = client.execute(get);
 			
-			// mittels der response.setHeader() Methode kšnnen Header-Felder gesetzt werden
+			// mittels der response.setHeader() Methode kï¿½nnen Header-Felder gesetzt werden
 			
 			// check the response status
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -114,7 +122,7 @@ public class TestTouchpointService {
 	}
 
 	/**
-	 * †bungsaufgabe 3
+	 * ï¿½bungsaufgabe 3
 	 * 
 	 * @param client
 	 * @param tp
@@ -122,21 +130,15 @@ public class TestTouchpointService {
 	private static void deleteTouchpoint(HttpClient client,
 			AbstractTouchpoint tp) {
 	     try {
-	         
-	         // create a GetMethod
-	         // Šndern Sie die URL fŸr †1
-	         HttpDelete delete = new HttpDelete("http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints");
-	         HttpParams httpParams = delete.getParams();
-	         httpParams.setParameter("id", tp.getId());
-	         
-	         // execute the method and obtain the response
+	    	 String url = "http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints/" + tp.getId();
+			 HttpDelete delete = new HttpDelete(url);
+//			 HttpParams httpParams = new BasicHttpParams();//delete.getParams();
+//	         httpParams.setParameter("id", tp.getId());
+//	         delete.setParams(httpParams);
 	         HttpResponse response = client.execute(delete);
-	         
-	         
-	         
-	         // check the response status
+
 	         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-	            logger.info("done");
+	            logger.info("deleted");
 	         } else {
 	            String err = "could not successfully execute request. Got status code: "
 	                  + response.getStatusLine().getStatusCode();
@@ -152,9 +154,9 @@ public class TestTouchpointService {
 	}
 
 	/**
-	 * †bungsaufgabe 4
+	 * ï¿½bungsaufgabe 4
 	 * 
-	 * fŸr das Schreiben des zu erzeugenden Objekts als Request Body siehe die
+	 * fï¿½r das Schreiben des zu erzeugenden Objekts als Request Body siehe die
 	 * Hinweise auf:
 	 * http://stackoverflow.com/questions/10146692/how-do-i-write-to
 	 * -an-outpustream-using-defaulthttpclient
@@ -164,8 +166,30 @@ public class TestTouchpointService {
 	 */
 	private static AbstractTouchpoint createNewTouchpoint(HttpClient client,
 			AbstractTouchpoint tp) {
-		logger.info("createNewTouchpoint(): " + tp);
+		try {
+			 logger.info("createNewTouchpoint(): " + tp);
+	    	 String url = "http://localhost:8080/org.dieschnittstelle.jee.esa.servlets/service/touchpoints/";
+			 HttpPost post = new HttpPost(url);
+			 
+			 post.setEntity(new SerializableEntity(tp, false));
+			 
+	         HttpResponse response = client.execute(post);
 
+	         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+	            logger.info("create");
+	            
+	         } else {
+	            String err = "could not successfully execute request. Got status code: "
+	                  + response.getStatusLine().getStatusCode();
+	            logger.error(err);
+	            throw new RuntimeException(err);
+	         }
+
+	      } catch (Exception e) {
+	         String err = "got exception: " + e;
+	         logger.error(err, e);
+	         throw new RuntimeException(e);
+	      }
 		return null;
 		
 	}
