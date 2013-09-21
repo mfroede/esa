@@ -12,7 +12,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -26,22 +25,10 @@ public class MainActivity extends Activity {
    public static final String PROPERTY_REG_ID = "org.dieschnittstelle.jee.esa.android.cns";
    private static final String PROPERTY_APP_VERSION = "appVersion";
    private static final String PROPERTY_ON_SERVER_EXPIRATION_TIME = "onServerExpirationTimeMs";
-   /**
-    * Default lifespan (7 days) of a reservation until it is considered expired.
-    */
+
    public static final long REGISTRATION_EXPIRY_TIME_MS = 1000 * 3600 * 24 * 7;
-
-   /**
-    * Substitute you own sender ID here.
-    */
-   String SENDER_ID = "74013628621";
-
-   /**
-    * Tag used on log messages.
-    */
    static final String LOG_TAG = MainActivity.class.getName();
-
-   TextView mDisplay;
+   String SENDER_ID = "74013628621";
    GoogleCloudMessaging gcm;
    AtomicInteger msgId = new AtomicInteger();
    SharedPreferences prefs;
@@ -54,7 +41,6 @@ public class MainActivity extends Activity {
       super.onCreate(savedInstanceState);
 
       setContentView(R.layout.main);
-      mDisplay = (TextView) findViewById(R.id.display);
 
       context = getApplicationContext();
       regid = getRegistrationId(context);
@@ -86,18 +72,6 @@ public class MainActivity extends Activity {
                regid = gcm.register(SENDER_ID);
                msg = "Device registered, registration id=" + regid;
 
-               // You should send the registration ID to your server over
-               // HTTP,
-               // so it can use GCM/HTTP or CCS to send messages to your
-               // app.
-
-               // For this demo: we don't need to send it because the
-               // device
-               // will send upstream messages to a server that echo back
-               // the message
-               // using the 'from' address in the message.
-
-               // Save the regid - no need to register again.
                setRegistrationId(context, regid);
 
                registerWithServer();
@@ -110,7 +84,7 @@ public class MainActivity extends Activity {
 
          @Override
          protected void onPostExecute(String msg) {
-            mDisplay.append(msg + "\n");
+            Toast.makeText(MainActivity.this, "GCM Registration successful: " + msg, Toast.LENGTH_SHORT).show();
          }
 
       }.execute(null, null, null);
@@ -212,7 +186,7 @@ public class MainActivity extends Activity {
          @Override
          public void callback(String url, String s, AjaxStatus status) {
             if (s != null) {
-               mDisplay.append(s + "\n");
+               Toast.makeText(MainActivity.this, "GCM Registration successful: " + s, Toast.LENGTH_SHORT).show();
             } else {
                Toast.makeText(MainActivity.this, status.toString(), Toast.LENGTH_LONG).show();
             }

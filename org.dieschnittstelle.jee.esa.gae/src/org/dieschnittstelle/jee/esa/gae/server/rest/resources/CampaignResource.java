@@ -93,7 +93,13 @@ public class CampaignResource {
 
    private void notifyRegisteredDevices() {
       try {
-         sender.send(new Message.Builder().addData(INFO, NEW_CAMPAIGN_INFO).build(), Datastore.getDevices(), 5);
+         // @formatter:off
+         Message msg = new Message.Builder()
+            .addData(INFO, NEW_CAMPAIGN_INFO)
+            .addData("campaignExecution", "value")
+            .build();
+         // @formatter:on
+         sender.send(msg, Datastore.getDevices(), 5);
       } catch (IOException e) {
          LOGGER.severe(e.getMessage());
       }
