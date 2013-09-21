@@ -25,6 +25,7 @@ import org.dieschnittstelle.jee.esa.gae.server.entities.CampaignExecution;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Datastore;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Message;
 import org.dieschnittstelle.jee.esa.gae.server.gcm.Sender;
+import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.CampaignDTO;
 import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.CampaignExecutionDTO;
 
 import com.google.gson.Gson;
@@ -56,9 +57,13 @@ public class CampaignResource {
 
    @GET
    @Produces(MediaType.APPLICATION_JSON)
-   public List<Campaign> getAllCampaigns() {
+   public List<CampaignDTO> getAllCampaigns() {
       List<Campaign> readAllCampaigns = campaignCRUD.readAllCampaigns();
-      return readAllCampaigns;
+      List<CampaignDTO> result = new LinkedList<>();
+      for (Campaign campaign : readAllCampaigns) {
+         result.add(DtoTransformer.instance().toCampaignDTO(campaign));
+      }
+      return result;
    }
 
    @PUT

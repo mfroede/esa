@@ -14,6 +14,7 @@ import javax.xml.bind.JAXBElement;
 import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUD;
 import org.dieschnittstelle.jee.esa.gae.server.crud.CustomerCRUDImpl;
 import org.dieschnittstelle.jee.esa.gae.server.entities.Customer;
+import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.CustomerDTO;
 
 @Path("/customer")
 public class CustomerResource {
@@ -42,8 +43,8 @@ public class CustomerResource {
    @POST
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.APPLICATION_JSON)
-   public Customer updateCustomer(JAXBElement<Customer> customerDTO) {
-      return customerCRUD.updateCustomer(customerDTO.getValue());
+   public CustomerDTO updateCustomer(JAXBElement<Customer> customerDTO) {
+      return DtoTransformer.instance().toCustomerDTO(customerCRUD.updateCustomer(customerDTO.getValue()));
    }
 
    @DELETE
