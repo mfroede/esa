@@ -1,21 +1,15 @@
 package org.dieschnittstelle.jee.esa.gae.server.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * this is an abstraction over different touchpoints (with pos being the most
@@ -40,11 +34,6 @@ public abstract class AbstractTouchpoint implements Serializable {
 
    protected String name;
 
-   @XmlTransient
-   @JsonIgnore
-   @ManyToMany
-   private Collection<Customer> customers = new HashSet<Customer>();
-
    public AbstractTouchpoint() {
 
    }
@@ -65,18 +54,6 @@ public abstract class AbstractTouchpoint implements Serializable {
 
    public void setName(String name) {
       this.name = name;
-   }
-
-   public Collection<Customer> getCustomers() {
-      return customers;
-   }
-
-   public void setCustomers(HashSet<Customer> customers) {
-      this.customers = customers;
-   }
-
-   public void addCustomer(Customer customer) {
-      this.customers.add(customer);
    }
 
    @Override
