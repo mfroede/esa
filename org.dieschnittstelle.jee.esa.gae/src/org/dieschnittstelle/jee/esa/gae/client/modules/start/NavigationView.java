@@ -2,15 +2,16 @@ package org.dieschnittstelle.jee.esa.gae.client.modules.start;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
+public interface NavigationView extends IsWidget {
 
-public interface NavigationView extends IsWidget{
+   public interface Presenter {
 
-	public interface Presenter {
+      void onMenuProductsClicked();
 
-		void onMenuProductsClicked();
+      void onMenuLoginClicked();
 
-	}
-	
-	void setPresenter(Presenter presenter);
+   }
+
+   void setPresenter(Presenter presenter);
 
 }

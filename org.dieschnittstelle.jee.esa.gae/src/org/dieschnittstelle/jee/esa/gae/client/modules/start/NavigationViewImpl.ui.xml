@@ -73,7 +73,7 @@
 			<g:MenuItem text="Kampagnenübersicht" styleName="{style.menuitemy}" />
 			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 				styleName="{style.menuitemx}" />
-			<g:MenuItem text="Login" styleName="{style.menuitemy}" />
+			<g:MenuItem ui:field="menuLogin" text="Login" styleName="{style.menuitemy}" />
 			<g:MenuItem text="Registrierung" styleName="{style.menuitemy}" />
 			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 				styleName="{style.warenkorbimage} {style.menuitemy}" />
