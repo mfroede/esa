@@ -115,7 +115,7 @@ public class DtoTransformer {
 
 	public CustomerDTO toCustomerDTO(Customer customer) {
 		CustomerDTO customerDTO = new CustomerDTO();
-		customerDTO.setId(customer.getId().getId());
+		customerDTO.setId(customer.getId());
 		customerDTO.setEmail(customer.getEmail());
 		customerDTO.setAddress(toAddressDTO(customer.getAddress()));
 		customerDTO.setFirstName(customer.getFirstName());
