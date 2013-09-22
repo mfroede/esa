@@ -10,6 +10,7 @@ public class Services {
 	private static LoginResourceAsync loginResourceAsync;
 	private static CampaignResourceAsync campaignResourceAsync;
 	private static RegistrationResourceAsync registrationResourceAsync;
+	private static TouchpointsResourceAsync touchpaointsResourceAsync;
 
 	public static final LoginResourceAsync login() {
 		if (loginResourceAsync == null) {
@@ -37,5 +38,15 @@ public class Services {
 					.setResource(new Resource(BASE_URL + "/campaign"));
 		}
 		return campaignResourceAsync;
+	}
+
+	public static final TouchpointsResourceAsync touchpoints() {
+		if (touchpaointsResourceAsync == null) {
+			touchpaointsResourceAsync = GWT
+					.create(TouchpointsResourceAsync.class);
+			((RestServiceProxy) touchpaointsResourceAsync)
+					.setResource(new Resource(BASE_URL + "/touchpoint"));
+		}
+		return touchpaointsResourceAsync;
 	}
 }
