@@ -54,12 +54,10 @@ public class TouchpointCRUDWebServiceSOAP {
 				.get(MessageContext.SERVLET_CONTEXT);
 		logger.info("readAllTouchpoints(): servlet context is: " + ctx);
 		// we also read out the http request
-		HttpServletRequest httpRequest = (HttpServletRequest) wscontext
-				.getMessageContext().get(MessageContext.SERVLET_REQUEST);
+		HttpServletRequest httpRequest = (HttpServletRequest) wscontext.getMessageContext().get(MessageContext.SERVLET_REQUEST);
 		logger.info("readAllTouchpoints(): servlet request is: " + httpRequest);
 
-		TouchpointCRUDExecutor touchpointCRUD = (TouchpointCRUDExecutor) ctx
-				.getAttribute("touchpointCRUD");
+		TouchpointCRUDExecutor touchpointCRUD = (TouchpointCRUDExecutor) ctx.getAttribute("touchpointCRUD");
 		logger.info("readAllTouchpoints(): read touchpointCRUD from servletContext: "
 				+ touchpointCRUD);
 		
@@ -95,4 +93,13 @@ public class TouchpointCRUDWebServiceSOAP {
 		return touchpointCRUD.deleteTouchpoint(id);
 	}
 
+	@WebMethod
+	public AbstractTouchpoint updateTouchpoint(AbstractTouchpoint tp) {
+		// obtain the CRUD executor from the servlet context
+		TouchpointCRUDExecutor touchpointCRUD = (TouchpointCRUDExecutor) ((ServletContext) wscontext
+				.getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+				.getAttribute("touchpointCRUD");
+
+		return touchpointCRUD.updateTouchpoint(tp);
+	}
 }

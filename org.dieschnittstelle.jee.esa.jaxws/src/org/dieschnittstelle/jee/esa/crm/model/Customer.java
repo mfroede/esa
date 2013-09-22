@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /*
  * Ü2: ändern Sie die Klasse so, dass sie client-seitig in einem gleichnamigen Package wie server-seitig generiert wird
  */
+@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType(namespace = "http://dieschnittstelle.org/jee/esa/crm/model")
 public class Customer implements Serializable {
 
 	/**

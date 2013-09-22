@@ -94,6 +94,7 @@ public class TouchpointCRUDExecutor {
 	 * update an existing touchpoint
 	 */
 	public AbstractTouchpoint updateTouchpoint(final AbstractTouchpoint touchpoint) {
+		logger.info("createTouchpoint(): " + touchpoint);
 		int index = this.touchpoints.indexOf(new AbstractTouchpoint() {
 
 			@Override

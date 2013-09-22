@@ -41,7 +41,7 @@ public abstract class AbstractTouchpoint implements Serializable {
 	/*
 	 * Ü2: kommentieren Sie diese Annotation aus
 	 */
-	@XmlTransient
+	//@XmlTransient
 	private Collection<Customer> customers;
 
 	public AbstractTouchpoint() {
@@ -91,6 +91,13 @@ public abstract class AbstractTouchpoint implements Serializable {
 		}
 
 		return this.getId() == ((AbstractTouchpoint) obj).getId();
+	}
+
+	@Override
+	public String toString() {
+		return "AbstractTouchpoint [id=" + id + ", erpPointOfSaleId="
+				+ erpPointOfSaleId + ", name=" + name + ", customers="
+				+ customers + "]";
 	}
 
 }
