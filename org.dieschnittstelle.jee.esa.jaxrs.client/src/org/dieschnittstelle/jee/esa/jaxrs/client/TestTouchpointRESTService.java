@@ -16,8 +16,7 @@ import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 public class TestTouchpointRESTService {
 	
-	protected static Logger logger = Logger
-			.getLogger(TestTouchpointRESTService.class);
+	protected static Logger logger = Logger.getLogger(TestTouchpointRESTService.class);
 
 	/**
 	 * @param args

@@ -19,7 +19,7 @@
     <context-param>
         <param-name>resteasy.scan</param-name>
         <param-value>true</param-value>
-    </context-param>         
+    </context-param>       
     <listener>
         <listener-class>
        org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
@@ -30,11 +30,11 @@
         <servlet-class>
             org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
         </servlet-class>
-        <!--  this parameter would be necessary if we wanted to use an application that provides shared functionality / resources to all request processing methods 
-        <init-param>
+        <!--  this parameter would be necessary if we wanted to use an application that provides shared functionality / resources to all request processing methods --> 
+        <!-- init-param>
          	<param-name>javax.ws.rs.Application</param-name>
          	<param-value>org.dieschnittstelle.jee.esa.jaxrs.ResteasyWebServiceApplication</param-value>
-     	</init-param> -->
+     	</init-param-->
     </servlet>       
     <servlet-mapping>
         <servlet-name>Resteasy</servlet-name>

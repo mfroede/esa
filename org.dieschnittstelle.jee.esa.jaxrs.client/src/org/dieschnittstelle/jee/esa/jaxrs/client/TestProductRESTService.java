@@ -41,11 +41,13 @@ public class TestProductRESTService {
 		/*
 		 * Ü2: rufen Sie auf serviceClient die im Interface deklarierte Methode für das Erzeugen von Produkten für prod1 und prod2 auf
 		 */
+		logger.info("Create: " + serviceClient.createIndividualisedProductItem(prod1));
+		logger.info("Create: " + serviceClient.createIndividualisedProductItem(prod2));
 		
 		/*
 		 * Ü2: rufen Sie auf serviceClient die im Interface deklarierte Methode für das Auslesen aller Produkte auf
 		 */
-				
+		logger.info("ReadAll: " + serviceClient.readAllIndividualisedProductItems());
 	}
 	
 }

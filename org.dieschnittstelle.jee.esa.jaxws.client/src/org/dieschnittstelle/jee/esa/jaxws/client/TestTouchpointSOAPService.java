@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.dieschnittstelle.jee.esa.crm.model.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.crm.model.StationaryTouchpoint;
-import org.dieschnittstelle.jee.esa.jaxws.Address;
+import org.dieschnittstelle.jee.esa.crm.model.Address;
 import org.dieschnittstelle.jee.esa.jaxws.TouchpointCRUDWebService;
 import org.dieschnittstelle.jee.esa.jaxws.TouchpointCRUDWebServiceSOAP;
 
@@ -35,7 +35,7 @@ public class TestTouchpointSOAPService {
 			// 2) delete the touchpoint after next console input
 			if (touchpoints != null && touchpoints.size() > 0) {
 				try {
-					System.out.println("/>");
+					System.out.println("2/>");
 					System.in.read();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -52,7 +52,7 @@ public class TestTouchpointSOAPService {
 
 			// 3) wait for input and create a new touchpoint
 			try {
-				System.out.println("/>");
+				System.out.println("3/>");
 				System.in.read();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -76,7 +76,7 @@ public class TestTouchpointSOAPService {
 			 * 4) wait for input and...
 			 */
 			try {
-				System.out.println("/>");
+				System.out.println("4/>");
 				System.in.read();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -88,6 +88,9 @@ public class TestTouchpointSOAPService {
 			/*
 			 * Ü3: add a call to the update method of the web service, passing tp
 			 */
+			tp = (StationaryTouchpoint) serviceOperations.updateTouchpoint(tp);
+			logger.info("updated touchpoint: " + tp);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

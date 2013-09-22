@@ -21,6 +21,15 @@ import org.dieschnittstelle.jee.esa.erp.model.IndividualisedProductItem;
 /*
  * Ü3: ändern Sie den Rückgabetyp der Auslese-Methode von List<IndividualisedProductItem> auf List<AbstractProduct> und passen Sie die Implementierung an
  */
+@Path("/resteasy/ProductItems")
+@Consumes({"application/json"})
+@Produces({"application/json"})
 public interface IProductCRUDWebService {
+	
+	@POST
+	public IndividualisedProductItem createIndividualisedProductItem(IndividualisedProductItem item);
+	
+	@GET
+	public List<AbstractProduct> readAllIndividualisedProductItems();
 
 }

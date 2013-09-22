@@ -2,9 +2,15 @@ package org.dieschnittstelle.jee.esa.crm.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType(namespace = "http://dieschnittstelle.org/jee/esa/crm/model")
 public class Address extends Location  implements Serializable {
 	
 	/**
