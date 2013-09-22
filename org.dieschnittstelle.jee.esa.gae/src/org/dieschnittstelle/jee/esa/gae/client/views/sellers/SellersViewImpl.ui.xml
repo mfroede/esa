@@ -39,8 +39,8 @@
 
 	</ui:style>
 	<g:FlowPanel>
-		<g:Label text="Produktübersicht" styleName="{style.flow}"></g:Label>
-		<g:Grid ui:field="producttable"></g:Grid>
+		<g:Label text="Händlerübersicht" styleName="{style.flow}"></g:Label>
+		<g:Grid ui:field="sellerstable"></g:Grid>
 		<!-- <g:FlowPanel styleName="{style.flowhorizontal}">
 			<g:FlowPanel styleName="{style.flowvertical}">
 				<g:Label text="Anrede" styleName="{style.textlabels}"></g:Label>

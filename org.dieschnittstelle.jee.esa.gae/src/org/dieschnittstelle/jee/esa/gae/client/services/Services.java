@@ -11,6 +11,7 @@ public class Services {
 	private static CampaignResourceAsync campaignResourceAsync;
 	private static RegistrationResourceAsync registrationResourceAsync;
 	private static TouchpointsResourceAsync touchpaointsResourceAsync;
+	private static CampaignExecutionResourceAsync campaignExecutionsResourceAsync;
 
 	public static final LoginResourceAsync login() {
 		if (loginResourceAsync == null) {
@@ -48,5 +49,15 @@ public class Services {
 					.setResource(new Resource(BASE_URL + "/touchpoint"));
 		}
 		return touchpaointsResourceAsync;
+	}
+
+	public static final CampaignExecutionResourceAsync campaignExecutions() {
+		if (campaignExecutionsResourceAsync == null) {
+			campaignExecutionsResourceAsync = GWT
+					.create(CampaignExecutionResourceAsync.class);
+			((RestServiceProxy) campaignExecutionsResourceAsync)
+					.setResource(new Resource(BASE_URL + "/campaign/executions"));
+		}
+		return campaignExecutionsResourceAsync;
 	}
 }

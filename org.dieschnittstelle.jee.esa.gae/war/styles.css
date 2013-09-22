@@ -32,3 +32,27 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+.tablep {
+	margin-top: 10%;
+	width: 80%;
+	left: 10% !important;
+	top: 10% !important;
+	/* border: 1px solid #336699; */
+}
+/*  		.tablep td:nth-child(odd) {
+			font-size: 14px;
+			padding: 5px 10px;
+			background-color: #336699;
+			border: 1px solid #336699;
+		}  */
+		
+		.tablep tr:nth-child(even){
+			background-color: #336699;
+			color: #FFFFFF;
+			/* border: 1px solid #FF9900; */
+		}
+		.tablep tr:nth-child(odd){
+			background-color: #FF9900;
+			color: #FFFFFF;
+			/* border: 1px solid #FF9900; */
+		}

@@ -1,6 +1,10 @@
 package org.dieschnittstelle.jee.esa.gae.client.views.products;
 
+import java.util.List;
+
 import org.dieschnittstelle.jee.esa.gae.client.common.AbstractView;
+import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.CampaignExecutionDTO;
+import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.ProductBundleDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -17,6 +21,8 @@ public class ProductsViewImpl extends AbstractView implements ProductsView {
 
 	@UiField
 	protected Grid producttable;
+
+	List<CampaignExecutionDTO> executions;
 	// @UiField
 	// protected FlowPanel panelproduct;
 	// @UiField
@@ -35,30 +41,7 @@ public class ProductsViewImpl extends AbstractView implements ProductsView {
 	@Inject
 	public ProductsViewImpl() {
 		content.add(uiBinder.createAndBindUi(this));
-		TestTableProductData t = new TestTableProductData();
-		// TODO Anzahl Products for rows
-		// panelproduct = new FlowPanel();
-		// panelproduct.setStyleName("huhu");
-		producttable = new Grid(t.getList().size(), 4);
-		producttable.setStyleName("tablep");
-		for (int row = 0; row < producttable.getRowCount(); row++) {
-			// producttable.setWidget(row, 0, new Label(t.getList().get(row)
-			// .getId()
-			// + ""));
-			producttable.setWidget(row, 1, new Label(t.getList().get(row)
-					.getName()));
-			producttable.setWidget(row, 2, new Label(t.getList().get(row)
-					.getPrice()
-					+ ""));
-			producttable.setWidget(row, 3, new Image(
-					"DieSchnittstelle/gwt/standard/images/LupeKlein.png"));
 
-		}
-		// panelproduct.getElement().setAttribute("style",
-		// "top: 10%; left: 10%;");
-		// producttable.getElement().setAttribute("left", "10%");
-		// panelproduct.add(producttable);
-		content.add(producttable);
 	}
 
 	@Override
@@ -66,6 +49,45 @@ public class ProductsViewImpl extends AbstractView implements ProductsView {
 		this.presenter = presenter;
 	}
 
+	@Override
+	public void setCampaignsExecutions(List<CampaignExecutionDTO> execution) {
+		this.executions = execution;
+		setCampaignsExecutions();
+
+	}
+
+	public void setCampaignsExecutions() {
+		if (executions != null && !executions.isEmpty()) {
+			producttable = new Grid(0, 4);
+			producttable.setStyleName("tablep");
+			int i = 0;
+			for (CampaignExecutionDTO execution : executions) {
+				List<ProductBundleDTO> products = execution.getCampaign()
+						.getBundles();
+				if (products != null && !products.isEmpty()) {
+					for (ProductBundleDTO product : products) {
+						producttable.resizeRows(i + 1);
+						producttable.setWidget(i, 0, new Label(execution
+								.getTouchpoint().getName()
+								+ ", "
+								+ execution.getTouchpoint().getAddress()));
+						producttable.setWidget(i, 1, new Label(product
+								.getProduct().getName()));
+						producttable.setWidget(i, 2, new Label(product
+								.getProduct().getPrice() + ""));
+						producttable
+								.setWidget(
+										i,
+										3,
+										new Image(
+												"DieSchnittstelle/gwt/standard/images/LupeKlein.png"));
+						i++;
+					}
+				}
+			}
+		}
+		content.add(producttable);
+	}
 	// @UiHandler("button")
 	// void onButtonPressed(ClickEvent e) {
 	// Window.alert("Clicked Me");
