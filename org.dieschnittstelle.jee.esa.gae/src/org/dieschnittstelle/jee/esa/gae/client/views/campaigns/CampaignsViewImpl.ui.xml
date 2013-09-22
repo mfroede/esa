@@ -12,13 +12,23 @@
 		.flowcamp {
 			display: -webkit-box;
 			-webkit-box-orient: horizontal;	
-		}		
+		}	
+		.scrollcamp {
+			display: -webkit-box;
+			-webkit-box-orient: horizontal;	
+			width: 50%;
+			height: 50%;
+			margin-left: 20%;
+		}
+
 
 
 	</ui:style>
 	<g:FlowPanel>
 		<g:Label text="Angebotsübersicht" styleName="{style.flow}"></g:Label>
+		<g:ScrollPanel styleName="{style.scrollcamp}">
 		<g:FlowPanel ui:field="campaignspanel" styleName="{style.flowcamp}"></g:FlowPanel>
+		</g:ScrollPanel>
 		
 	</g:FlowPanel>
 </ui:UiBinder> 

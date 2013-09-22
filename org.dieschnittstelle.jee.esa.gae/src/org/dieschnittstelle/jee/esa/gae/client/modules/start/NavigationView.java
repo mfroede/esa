@@ -4,14 +4,20 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface NavigationView extends IsWidget {
 
-   public interface Presenter {
+	public interface Presenter {
 
-      void onMenuProductsClicked();
+		void onMenuProductsClicked();
 
-      void onMenuLoginClicked();
+		void onMenuLoginClicked();
 
-   }
+		void onMenuRegistrationClicked();
 
-   void setPresenter(Presenter presenter);
+		void onMenuCampaignsClicked();
+
+		void onMenuSellersClicked();
+
+	}
+
+	void setPresenter(Presenter presenter);
 
 }

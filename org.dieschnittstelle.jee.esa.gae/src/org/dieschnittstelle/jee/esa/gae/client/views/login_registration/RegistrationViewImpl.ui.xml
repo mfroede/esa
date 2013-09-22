@@ -48,25 +48,25 @@
 				<g:Label text="Vorname Nachname" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="Straße Nr.:" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="PLZ/Ort" styleName="{style.textlabels}"></g:Label>
-				<g:Label text="E-Mail" styleName="{style.textlabels}"></g:Label>
+				<g:Label text="Telefonnummer" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="&nbsp;" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="&nbsp;" styleName="{style.textlabels}"></g:Label>
-				<g:Label text="Anmeldename" styleName="{style.textlabels}"></g:Label>
+				<g:Label text="E-mail" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="Passwort" styleName="{style.textlabels}"></g:Label>
 				<g:Label text="Passwortbestätigung" styleName="{style.textlabels}"></g:Label>
 			</g:FlowPanel>
 			<g:FlowPanel styleName="{style.flowvertical}">
-				<g:RadioButton name="r1" text="Frau" ></g:RadioButton>
-				<g:RadioButton name="r1" text="Mann" ></g:RadioButton>
+				<g:RadioButton name="r1" text="Frau" ui:field="womanRadio"></g:RadioButton>
+				<g:RadioButton name="r1" text="Mann" ui:field="manRadio"></g:RadioButton>
 				<g:Label text="&nbsp;"></g:Label>
-				<g:TextBox width="50%"></g:TextBox>
-				<g:TextBox width="50%"></g:TextBox>
-				<g:TextBox width="50%"></g:TextBox>
-				<g:TextBox width="50%"></g:TextBox>
+				<g:TextBox width="50%" ui:field="name"></g:TextBox>
+				<g:TextBox width="50%" ui:field="street"></g:TextBox>
+				<g:TextBox width="50%" ui:field="country"></g:TextBox>
+				<g:TextBox width="50%" ui:field="mobilephoneID"></g:TextBox>
 				<g:Label text="&nbsp;" styleName="{style.textlabels}"></g:Label>
-				<g:TextBox width="50%"></g:TextBox>
-				<g:PasswordTextBox width="50%"></g:PasswordTextBox>
-				<g:PasswordTextBox width="50%"></g:PasswordTextBox>
+				<g:TextBox width="50%" ui:field="email"></g:TextBox>
+				<g:PasswordTextBox width="50%" ui:field="password1"></g:PasswordTextBox>
+				<g:PasswordTextBox width="50%" ui:field="password2"></g:PasswordTextBox>
 			</g:FlowPanel>
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.flowb}">

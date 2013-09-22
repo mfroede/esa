@@ -3,12 +3,38 @@ package org.dieschnittstelle.jee.esa.gae.client.views.login_registration;
 import org.dieschnittstelle.jee.esa.gae.client.common.AbstractView;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class RegistrationViewImpl extends AbstractView implements
 		RegistrationView {
+
+	@UiField
+	RadioButton womanRadio;
+	@UiField
+	RadioButton manRadio;
+	@UiField
+	TextBox name;
+	@UiField
+	TextBox street;
+	@UiField
+	TextBox country;
+	@UiField
+	TextBox mobilephoneID;
+	@UiField
+	TextBox email;
+	@UiField
+	PasswordTextBox password1;
+	@UiField
+	PasswordTextBox password2;
 
 	private static RegistrationViewImplUiBinder uiBinder = GWT
 			.create(RegistrationViewImplUiBinder.class);
@@ -30,8 +56,31 @@ public class RegistrationViewImpl extends AbstractView implements
 		this.presenter = presenter;
 	}
 
-	// @UiHandler("button")
-	// void onButtonPressed(ClickEvent e) {
-	// Window.alert("Clicked Me");
-	// }
+	@UiHandler({ "button" })
+	void onButtonPressed(ClickEvent e) {
+		if (!password1.getText().equals(password2.getText())) {
+			Window.alert("Die Passwörter stimmen nicht überein.");
+		} else {
+			String firstName = name.getText().substring(0,
+					name.getText().indexOf(" "));
+			String lastName = name.getText().substring(
+					name.getText().indexOf(" "));
+
+			String gender;
+			if (womanRadio.isEnabled()) {
+				gender = "w";
+			} else {
+				gender = "m";
+			}
+			String streetValue = street.getText().substring(0,
+					street.getText().lastIndexOf(" "));
+			String houseNumber = street.getText().substring(
+					street.getText().lastIndexOf(" "));
+
+			presenter.onButtonClick(firstName, lastName, gender,
+					country.getText(), streetValue, houseNumber,
+					email.getText(), mobilephoneID.getText(),
+					password1.getText());
+		}
+	}
 }

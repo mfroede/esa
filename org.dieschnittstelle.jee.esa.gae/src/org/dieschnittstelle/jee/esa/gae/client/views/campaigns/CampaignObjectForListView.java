@@ -7,23 +7,31 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class CampaignObjectForListView extends Widget {
 
-   private final FlowPanel oneCampaign;
+	private final FlowPanel oneCampaign;
+	private final String DEFAULT_URL = "http://i.istockimg.com/file_thumbview_approve/16430034/2/stock-photo-16430034-citrus-slices.jpg";
 
-   public CampaignObjectForListView(String imageURL, String text) {
-      oneCampaign = new FlowPanel();
-      if (imageURL != null) {
-         Image image = new Image(imageURL);
-         oneCampaign.add(image);
-      }
-      Label labelText = new Label(text);
+	public CampaignObjectForListView(String imageURL, String campaignName,
+			String price) {
+		oneCampaign = new FlowPanel();
+		Image image;
+		if (imageURL != null) {
+			image = new Image(imageURL);
+		} else {
+			image = new Image(DEFAULT_URL);
 
-      oneCampaign.add(labelText);
-   }
+		}
+		image.setWidth("50%");
+		oneCampaign.add(image);
+		Label labelCampaignName = new Label(campaignName);
+		Label labelPrice = new Label(price);
+		oneCampaign.add(labelCampaignName);
+		oneCampaign.add(labelPrice);
+	}
 
-   @Override
-   public Widget asWidget() {
-      // TODO Auto-generated method stub
-      return oneCampaign;
-   }
+	@Override
+	public Widget asWidget() {
+		// TODO Auto-generated method stub
+		return oneCampaign;
+	}
 
 }
