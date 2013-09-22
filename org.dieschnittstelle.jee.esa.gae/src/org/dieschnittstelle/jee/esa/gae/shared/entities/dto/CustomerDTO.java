@@ -1,7 +1,7 @@
 package org.dieschnittstelle.jee.esa.gae.shared.entities.dto;
 
 public class CustomerDTO {
-   private long id;
+   private Long id;
    private String gender;
    private String firstName;
    private String password;
@@ -10,11 +10,11 @@ public class CustomerDTO {
    private String email;
    private AddressDTO address;
 
-   public long getId() {
+   public Long getId() {
       return id;
    }
 
-   public void setId(long id) {
+   public void setId(Long id) {
       this.id = id;
    }
 
