@@ -38,7 +38,7 @@ public class LoginActivity extends AbstractActivityDefaultImpl<LoginPlace>
 	public void onButtonClick(String name, String password) {
 		LoginDTO loginDTO = new LoginDTO();
 
-		loginDTO.setUserName(name);
+		loginDTO.setName(name);
 		loginDTO.setPassword(password);
 
 		Services.login().login(loginDTO, new MethodCallback<CustomerDTO>() {

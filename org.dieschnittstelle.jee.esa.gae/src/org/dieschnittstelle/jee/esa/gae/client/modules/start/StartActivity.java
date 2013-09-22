@@ -36,7 +36,7 @@ public class StartActivity extends AbstractActivityDefaultImpl<StartPlace> imple
    public void onButtonClick() {
       LoginDTO loginDTO = new LoginDTO();
 
-      loginDTO.setUserName("mail@nowere.com");
+      loginDTO.setName("mail@nowere.com");
       loginDTO.setPassword("password");
 
       Services.login().login(loginDTO, new MethodCallback<CustomerDTO>() {

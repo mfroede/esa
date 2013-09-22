@@ -7,21 +7,23 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class CampaignObjectForListView extends Widget {
 
-	private final FlowPanel oneCampaign;
+   private final FlowPanel oneCampaign;
 
-	public CampaignObjectForListView(String imageURL, String text) {
-		oneCampaign = new FlowPanel();
-		Image image = new Image(imageURL);
-		Label labelText = new Label(text);
+   public CampaignObjectForListView(String imageURL, String text) {
+      oneCampaign = new FlowPanel();
+      if (imageURL != null) {
+         Image image = new Image(imageURL);
+         oneCampaign.add(image);
+      }
+      Label labelText = new Label(text);
 
-		oneCampaign.add(image);
-		oneCampaign.add(labelText);
-	}
+      oneCampaign.add(labelText);
+   }
 
-	@Override
-	public Widget asWidget() {
-		// TODO Auto-generated method stub
-		return oneCampaign;
-	}
+   @Override
+   public Widget asWidget() {
+      // TODO Auto-generated method stub
+      return oneCampaign;
+   }
 
 }

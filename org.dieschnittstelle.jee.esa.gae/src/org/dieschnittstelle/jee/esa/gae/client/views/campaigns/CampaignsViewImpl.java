@@ -23,48 +23,49 @@ import com.google.inject.Inject;
 
 public class CampaignsViewImpl extends AbstractView implements CampaignsView {
 
-	@UiField
-	protected FlowPanel campaignspanel;
+   @UiField
+   protected FlowPanel campaignspanel;
 
-	private List<CampaignDTO> campaigns;
-	private static ProductsViewImplUiBinder uiBinder = GWT
-			.create(ProductsViewImplUiBinder.class);
+   private List<CampaignDTO> campaigns;
+   private static ProductsViewImplUiBinder uiBinder = GWT.create(ProductsViewImplUiBinder.class);
 
-	interface ProductsViewImplUiBinder extends
-			UiBinder<Widget, CampaignsViewImpl> {
+   interface ProductsViewImplUiBinder extends UiBinder<Widget, CampaignsViewImpl> {
 
-	}
+   }
 
-	private Presenter presenter;
+   private Presenter presenter;
 
-	@Inject
-	public <T> CampaignsViewImpl() {
-		content.add(uiBinder.createAndBindUi(this));
-		if (campaigns != null) {
-			for (CampaignDTO camp : campaigns) {
-				campaignspanel.add(new CampaignObjectForListView(camp
-						.getImageURL(), camp.getName() + "</br>Price "
-						+ camp.getPrice()).asWidget());
-			}
-		} else {
-			campaignspanel.add(new Label(
-					"Leider keine aktuellen Angebote vorhanden"));
-		}
+   @Inject
+   public CampaignsViewImpl() {
+      content.add(uiBinder.createAndBindUi(this));
+      setCampaigns();
 
-	}
+   }
 
-	@Override
-	public void setPresenter(final Presenter presenter) {
-		this.presenter = presenter;
-	}
+   private void setCampaigns() {
+      campaignspanel.clear();
+      if (campaigns != null && !campaigns.isEmpty()) {
+         for (CampaignDTO camp : campaigns) {
+            campaignspanel.add(new CampaignObjectForListView(camp.getImageURL(), camp.getName() + "</br>Price " + camp.getPrice()).asWidget());
+         }
+      } else {
+         campaignspanel.add(new Label("Leider keine aktuellen Angebote vorhanden"));
+      }
+   }
 
-	@Override
-	public void setCampaigns(List<CampaignDTO> campaigns) {
-		this.campaigns = campaigns;
-	}
+   @Override
+   public void setPresenter(final Presenter presenter) {
+      this.presenter = presenter;
+   }
 
-	@Override
-	public void setCampaignsViews() {
+   @Override
+   public void setCampaigns(List<CampaignDTO> campaigns) {
+      this.campaigns = campaigns;
+      setCampaigns();
+   }
 
-	}
+   @Override
+   public void setCampaignsViews() {
+
+   }
 }
