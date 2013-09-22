@@ -42,9 +42,9 @@ public class ProductsViewImpl extends AbstractView implements ProductsView {
 		producttable = new Grid(t.getList().size(), 4);
 		producttable.setStyleName("tablep");
 		for (int row = 0; row < producttable.getRowCount(); row++) {
-			producttable.setWidget(row, 0, new Label(t.getList().get(row)
-					.getId()
-					+ ""));
+			// producttable.setWidget(row, 0, new Label(t.getList().get(row)
+			// .getId()
+			// + ""));
 			producttable.setWidget(row, 1, new Label(t.getList().get(row)
 					.getName()));
 			producttable.setWidget(row, 2, new Label(t.getList().get(row)

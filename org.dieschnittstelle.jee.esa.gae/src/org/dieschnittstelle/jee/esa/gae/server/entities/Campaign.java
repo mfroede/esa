@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,6 +24,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Campaign implements Serializable {
 
 	@Id
+	@XmlElement
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
@@ -42,11 +42,11 @@ public class Campaign implements Serializable {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<ProductBundle> bundles;
 
-	@XmlAttribute
+	@XmlElement
 	private String name;
-	@XmlAttribute
+	@XmlElement
 	private int price;
-	@XmlAttribute
+	@XmlElement
 	private String imageUrl;
 
 	public Campaign() {

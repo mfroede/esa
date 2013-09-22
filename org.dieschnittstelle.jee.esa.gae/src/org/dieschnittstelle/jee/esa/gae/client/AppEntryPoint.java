@@ -3,6 +3,7 @@ package org.dieschnittstelle.jee.esa.gae.client;
 import org.dieschnittstelle.jee.esa.gae.client.common.AppPlaceHistoryMapper;
 import org.dieschnittstelle.jee.esa.gae.client.gin.AppGinjector;
 import org.dieschnittstelle.jee.esa.gae.client.modules.start.StartPlace;
+import org.fusesource.restygwt.client.Defaults;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -15,6 +16,12 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
 
 public class AppEntryPoint implements EntryPoint {
+	static {
+		// if you don't do this, on JSON response you'll get something like
+		// this:
+		// "Could not parse response: org.fusesource.restygwt.client.ResponseFormatException: Response was NOT a valid JSON document"
+		Defaults.setDateFormat(null);
+	}
 
 	@Override
 	public void onModuleLoad() {

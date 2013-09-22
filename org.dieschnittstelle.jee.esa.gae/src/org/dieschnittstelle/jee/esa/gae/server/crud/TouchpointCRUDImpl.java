@@ -19,7 +19,19 @@ public class TouchpointCRUDImpl implements TouchpointCRUD {
    EntityManager em = EMF.get().createEntityManager();
 
    @Override
-   public AbstractTouchpoint createTouchpoint(AbstractTouchpoint touchpoint) {
+   public MobileTouchpoint createTouchpoint(MobileTouchpoint touchpoint) {
+
+      logger.info("createTouchpoint(): before persist(): " + touchpoint);
+      em.getTransaction().begin();
+      em.persist(touchpoint);
+      em.getTransaction().commit();
+      logger.info("createTouchpoint(): after persist(): " + touchpoint);
+
+      return touchpoint;
+   }
+
+   @Override
+   public StationaryTouchpoint createTouchpoint(StationaryTouchpoint touchpoint) {
 
       logger.info("createTouchpoint(): before persist(): " + touchpoint);
       em.getTransaction().begin();
@@ -34,7 +46,10 @@ public class TouchpointCRUDImpl implements TouchpointCRUD {
    public AbstractTouchpoint readTouchpoint(long id) {
       logger.info("readTouchpoint(): " + id);
 
-      AbstractTouchpoint touchpoint = em.find(AbstractTouchpoint.class, id);
+      AbstractTouchpoint touchpoint = em.find(StationaryTouchpoint.class, id);
+      if (touchpoint == null) {
+         touchpoint = em.find(MobileTouchpoint.class, id);
+      }
 
       logger.info("readTouchpoint(): " + touchpoint);
 

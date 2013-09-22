@@ -24,20 +24,7 @@ public class Location implements Serializable {
    private static final long serialVersionUID = -131090102062445239L;
 
    private double geoLat;
-
    private double geoLong;
-
-   // @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // private Key id;
-   //
-   // public Key getId() {
-   // return id;
-   // }
-   //
-   // public void setId(Key id) {
-   // this.id = id;
-   // }
 
    public double getGeoLat() {
       return geoLat;

@@ -9,18 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostRemove;
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 @XmlRootElement
@@ -31,20 +21,18 @@ public class Customer implements Serializable {
    private static final long serialVersionUID = 7461272049473919251L;
 
    @Id
+   @XmlElement
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Key id;
+   private Long id;
 
-   public Key getId() {
+   public Long getId() {
       return id;
-   }
-
-   public void setId(Key id) {
-      this.id = id;
    }
 
    private String gender;
 
    private String firstName;
+   private String password;
 
    private String lastName;
 
@@ -54,17 +42,6 @@ public class Customer implements Serializable {
 
    @ManyToOne(cascade = { CascadeType.ALL })
    private Address address;
-
-   // @ManyToMany(mappedBy = "customers")
-   // private Collection<AbstractTouchpoint> touchpoints = new
-   // HashSet<AbstractTouchpoint>();
-
-   @ManyToOne
-   private AbstractTouchpoint preferredTouchpoint;
-
-   // public void addTouchpoint(AbstractTouchpoint touchpoint) {
-   // this.touchpoints.add(touchpoint);
-   // }
 
    public Customer() {
       logger.info("<constructor>");
@@ -121,22 +98,6 @@ public class Customer implements Serializable {
       this.address = address;
    }
 
-   // public Collection<AbstractTouchpoint> getTouchpoints() {
-   // return touchpoints;
-   // }
-   //
-   // public void setTouchpoints(HashSet<AbstractTouchpoint> touchpoints) {
-   // this.touchpoints = touchpoints;
-   // }
-
-   public AbstractTouchpoint getPreferredTouchpoint() {
-      return preferredTouchpoint;
-   }
-
-   public void setPreferredTouchpoint(AbstractTouchpoint preferredTouchpoint) {
-      this.preferredTouchpoint = preferredTouchpoint;
-   }
-
    @Override
    public String toString() {
       return "{Customer " + this.id + " " + this.firstName + " " + this.lastName + " (" + this.gender + ") " + this.email + ", " + this.mobilePhoneId + ", " + this.address + "}";
@@ -150,44 +111,12 @@ public class Customer implements Serializable {
       return this.gender;
    }
 
-   @Override
-   public boolean equals(Object other) {
-      return EqualsBuilder.reflectionEquals(this, other);
+   public String getPassword() {
+      return password;
    }
 
-   @PostLoad
-   public void onPostLoad() {
-      logger.info("@PostLoad: " + this);
-   }
-
-   @PostPersist
-   public void onPostPersist() {
-      logger.info("@PostPersist: " + this);
-   }
-
-   @PostRemove
-   public void onPostRemove() {
-      logger.info("@PostRemove: " + this);
-   }
-
-   @PostUpdate
-   public void onPostUpdate() {
-      logger.info("@PostUpdate: " + this);
-   }
-
-   @PrePersist
-   public void onPrePersist() {
-      logger.info("@PrePersist: " + this);
-   }
-
-   @PreRemove
-   public void onPreRemove() {
-      logger.info("@PreRemove: " + this);
-   }
-
-   @PreUpdate
-   public void onPreUpdate() {
-      logger.info("@PreUpdate: " + this);
+   public void setPassword(String password) {
+      this.password = password;
    }
 
 }

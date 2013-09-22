@@ -69,12 +69,12 @@
 		<g:MenuBar styleName="{style.menubary}">
 			<g:MenuItem ui:field="menuproducts" text="Produktübersicht"
 				styleName="{style.menuitemy}" />
-			<g:MenuItem text="Händlerübersicht" styleName="{style.menuitemy}" />
-			<g:MenuItem text="Kampagnenübersicht" styleName="{style.menuitemy}" />
+			<g:MenuItem ui:field="menusellers" text="Händlerübersicht" styleName="{style.menuitemy}" />
+			<g:MenuItem ui:field="menucampaigns" text="Kampagnenübersicht" styleName="{style.menuitemy}" />
 			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 				styleName="{style.menuitemx}" />
-			<g:MenuItem text="Login" styleName="{style.menuitemy}" />
-			<g:MenuItem text="Registrierung" styleName="{style.menuitemy}" />
+			<g:MenuItem ui:field="menuLogin" text="Login" styleName="{style.menuitemy}" />
+			<g:MenuItem ui:field="menuregistration" text="Registrierung" styleName="{style.menuitemy}" />
 			<g:MenuItem text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 				styleName="{style.warenkorbimage} {style.menuitemy}" />
 		</g:MenuBar>

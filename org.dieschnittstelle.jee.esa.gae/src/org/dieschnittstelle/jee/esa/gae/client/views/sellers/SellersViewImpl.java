@@ -1,6 +1,9 @@
 package org.dieschnittstelle.jee.esa.gae.client.views.sellers;
 
+import java.util.List;
+
 import org.dieschnittstelle.jee.esa.gae.client.common.AbstractView;
+import org.dieschnittstelle.jee.esa.gae.shared.entities.dto.TouchpointDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -17,6 +20,8 @@ public class SellersViewImpl extends AbstractView implements SellersView {
 
 	@UiField
 	protected Grid producttable;
+
+	private List<TouchpointDTO> touchpoints;
 	// @UiField
 	// protected FlowPanel panelproduct;
 	// @UiField
@@ -64,6 +69,34 @@ public class SellersViewImpl extends AbstractView implements SellersView {
 	@Override
 	public void setPresenter(final Presenter presenter) {
 		this.presenter = presenter;
+	}
+
+	@Override
+	public void setTouchpoints(List<TouchpointDTO> touchpoints) {
+		this.touchpoints = touchpoints;
+		setTouchpoints();
+
+	}
+
+	private void setTouchpoints() {
+		producttable.clear();
+		producttable = new Grid(touchpoints.size(), 2);
+		producttable.setStyleName("tablep");
+		int i = 0;
+		if (touchpoints != null && !touchpoints.isEmpty()) {
+			for (TouchpointDTO point : touchpoints) {
+				i++;
+				producttable.setWidget(i, 0, new Label(point.getName() + ""));
+				producttable.setWidget(i, 1, new Label(point.getAddress()
+						.getCity()
+						+ ", "
+						+ point.getAddress().getStreet()
+						+ " " + point.getAddress().getHouseNr()));
+			}
+		} else {
+			content.add(new Label("Keine Verkäufer vorhanden"));
+		}
+		content.add(producttable);
 	}
 
 	// @UiHandler("button")

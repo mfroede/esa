@@ -4,6 +4,7 @@ import org.dieschnittstelle.jee.esa.gae.client.common.AbstractView;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -27,6 +28,15 @@ public class NavigationViewImpl extends AbstractView implements NavigationView {
 	@UiField
 	MenuItem menuproducts;
 
+	@UiField
+	MenuItem menuLogin;
+	@UiField
+	MenuItem menuregistration;
+	@UiField
+	MenuItem menucampaigns;
+	@UiField
+	MenuItem menusellers;
+
 	private Presenter presenter;
 
 	@Inject
@@ -38,6 +48,31 @@ public class NavigationViewImpl extends AbstractView implements NavigationView {
 			@Override
 			public void execute() {
 				presenter.onMenuProductsClicked();
+			}
+		});
+
+		menuLogin.setScheduledCommand(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				presenter.onMenuLoginClicked();
+			}
+		});
+		menuregistration.setScheduledCommand(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				presenter.onMenuRegistrationClicked();
+			}
+		});
+		menucampaigns.setScheduledCommand(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				presenter.onMenuCampaignsClicked();
+			}
+		});
+		menusellers.setScheduledCommand(new ScheduledCommand() {
+			@Override
+			public void execute() {
+				presenter.onMenuSellersClicked();
 			}
 		});
 	}

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
@@ -16,6 +15,7 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -36,6 +36,7 @@ public class StationaryTouchpoint extends AbstractTouchpoint implements Serializ
       this.id = id;
    }
 
+   @XmlElement
    @OneToOne(cascade = { CascadeType.ALL })
    private Address location;
 
