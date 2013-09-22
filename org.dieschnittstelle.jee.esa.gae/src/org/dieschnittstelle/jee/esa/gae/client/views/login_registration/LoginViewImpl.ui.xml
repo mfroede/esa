@@ -5,20 +5,21 @@
 	<ui:style>
 		.flowhorizontal {
 			display: -webkit-box;
-			width: 50%;
-			padding-left: 377px;
+			-webkit-box-orient: horizontal;		
+			width: 20%;
+			padding: 5px 35%;
 		}
 		
-		.flowvertical {
-			-webkit-box-orient: vertical;
+		.boxes {
 			-webkit-box-flex: 1;
-			padding-right: 10%;
+			margin-top: 5%;
 		}
 		
 		.textlabels {
 			font-size: 14px;
-			padding-left: 10%;
+			padding-left: 5%;
 			padding-top: 2.5%;
+			-webkit-box-flex: 1;
 		}
 		
 		.flow {
@@ -41,16 +42,14 @@
 	</ui:style>
 	<g:FlowPanel>
 		<g:Label text="Login" styleName="{style.flow}"></g:Label>
-		<g:FlowPanel styleName="{style.flowhorizontal}">
-			<g:FlowPanel styleName="{style.flowvertical}">
+			<g:FlowPanel styleName="{style.flowhorizontal}">
 				<g:Label text="Anmeldename" styleName="{style.textlabels}"></g:Label>
+				<g:TextBox ui:field="name" styleName="{style.boxes}"></g:TextBox>
+			</g:FlowPanel>
+			<g:FlowPanel styleName="{style.flowhorizontal}">
 				<g:Label text="Passwort" styleName="{style.textlabels}"></g:Label>
+				<g:PasswordTextBox ui:field="password" styleName="{style.boxes}" ></g:PasswordTextBox>
 			</g:FlowPanel>
-			<g:FlowPanel styleName="{style.flowvertical}">
-				<g:TextBox width="50%"></g:TextBox>
-				<g:PasswordTextBox width="50%"></g:PasswordTextBox>
-			</g:FlowPanel>
-		</g:FlowPanel>
 		<g:FlowPanel styleName="{style.flowb}">
 			<g:Button text="Einloggen" ui:field="button" styleName="{style.loginbutton}"></g:Button>
 		</g:FlowPanel>

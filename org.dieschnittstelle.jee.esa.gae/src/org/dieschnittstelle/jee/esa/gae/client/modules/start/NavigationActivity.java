@@ -1,15 +1,12 @@
 package org.dieschnittstelle.jee.esa.gae.client.modules.start;
 
 import org.dieschnittstelle.jee.esa.gae.client.common.AbstractActivityDefaultImpl;
-import org.dieschnittstelle.jee.esa.gae.client.views.login_registration.RegistrationPlace;
-import org.dieschnittstelle.jee.esa.gae.client.views.products.OneProductPlace;
-import org.dieschnittstelle.jee.esa.gae.client.views.products.ProductsPlace;
-
-import com.google.inject.Inject;
-import com.google.web.bindery.event.shared.EventBus;
+import org.dieschnittstelle.jee.esa.gae.client.views.campaigns.CampaignsPlace;
 
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
+import com.google.web.bindery.event.shared.EventBus;
 
 public class NavigationActivity extends
 		AbstractActivityDefaultImpl<NavigationPlace> implements
@@ -38,6 +35,6 @@ public class NavigationActivity extends
 
 	@Override
 	public void onMenuProductsClicked() {
-		placeController.goTo(new OneProductPlace());
+		placeController.goTo(new CampaignsPlace());
 	}
 }

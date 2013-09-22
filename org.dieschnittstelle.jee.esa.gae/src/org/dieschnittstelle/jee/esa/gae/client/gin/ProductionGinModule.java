@@ -8,6 +8,10 @@ import org.dieschnittstelle.jee.esa.gae.client.modules.start.NavigationViewImpl;
 import org.dieschnittstelle.jee.esa.gae.client.modules.start.StartActivity;
 import org.dieschnittstelle.jee.esa.gae.client.modules.start.StartView;
 import org.dieschnittstelle.jee.esa.gae.client.modules.start.StartViewImpl;
+import org.dieschnittstelle.jee.esa.gae.client.views.campaigns.CampaignsView;
+import org.dieschnittstelle.jee.esa.gae.client.views.campaigns.CampaignsViewImpl;
+import org.dieschnittstelle.jee.esa.gae.client.views.campaigns.OneCampaignView;
+import org.dieschnittstelle.jee.esa.gae.client.views.campaigns.OneCampaignViewImpl;
 import org.dieschnittstelle.jee.esa.gae.client.views.login_registration.LoginView;
 import org.dieschnittstelle.jee.esa.gae.client.views.login_registration.LoginViewImpl;
 import org.dieschnittstelle.jee.esa.gae.client.views.login_registration.RegistrationView;
@@ -16,6 +20,10 @@ import org.dieschnittstelle.jee.esa.gae.client.views.products.OneProductView;
 import org.dieschnittstelle.jee.esa.gae.client.views.products.OneProductViewImpl;
 import org.dieschnittstelle.jee.esa.gae.client.views.products.ProductsView;
 import org.dieschnittstelle.jee.esa.gae.client.views.products.ProductsViewImpl;
+import org.dieschnittstelle.jee.esa.gae.client.views.sellers.OneSellerView;
+import org.dieschnittstelle.jee.esa.gae.client.views.sellers.OneSellerViewImpl;
+import org.dieschnittstelle.jee.esa.gae.client.views.sellers.SellersView;
+import org.dieschnittstelle.jee.esa.gae.client.views.sellers.SellersViewImpl;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.place.shared.PlaceController;
@@ -40,6 +48,13 @@ public class ProductionGinModule extends AbstractGinModule {
 				Singleton.class);
 		bind(ProductsView.class).to(ProductsViewImpl.class).in(Singleton.class);
 		bind(OneProductView.class).to(OneProductViewImpl.class).in(
+				Singleton.class);
+		bind(SellersView.class).to(SellersViewImpl.class).in(Singleton.class);
+		bind(OneSellerView.class).to(OneSellerViewImpl.class).in(
+				Singleton.class);
+		bind(CampaignsView.class).to(CampaignsViewImpl.class).in(
+				Singleton.class);
+		bind(OneCampaignView.class).to(OneCampaignViewImpl.class).in(
 				Singleton.class);
 	}
 }
