@@ -95,7 +95,7 @@ public class CampaignResource {
       return DtoTransformer.instance().toCampaignExecutionDTO(cpe);
    }
 
-   @POST
+   @GET
    @Path("/executions")
    @Produces(MediaType.APPLICATION_JSON)
    public List<CampaignExecutionDTO> getAllExecutions() {
@@ -121,12 +121,5 @@ public class CampaignResource {
       } catch (IOException e) {
          LOGGER.severe(e.getMessage());
       }
-   }
-
-   @GET
-   @Path("/executions")
-   @Produces(MediaType.APPLICATION_JSON)
-   public List<CampaignExecution> getAllCampaignExecutions() {
-      return campaignExecutionCRUD.readAllCampaignExecutions();
    }
 }
